@@ -2,6 +2,7 @@ source 'https://supermarket.chef.io'
 
 cookbook 'mysql'
 cookbook 'apt'
+cookbook 'git'
 cookbook 'sysstat'
 cookbook 'chef-client'
 cookbook 'omnibus_updater', '~> 1.0.2'

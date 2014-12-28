@@ -4,6 +4,7 @@ DEPENDENCIES
   chef-client
   chef-sugar
   chef_handler
+  git
   hipchat
   logrotate
   motd
@@ -26,6 +27,14 @@ GRAPH
   chef-sugar (2.4.1)
   chef_handler (1.1.6)
   cron (1.6.1)
+  dmg (2.2.2)
+  git (4.1.0)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    runit (>= 1.0)
+    windows (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
   hipchat (0.4.0)
     chef_handler (>= 0.0.0)
   logrotate (1.7.0)
@@ -40,6 +49,10 @@ GRAPH
     yum (>= 3.0)
   rbac (1.0.2)
   resource-control (0.1.1)
+  runit (1.5.12)
+    build-essential (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
   smf (2.2.1)
     rbac (>= 1.0.1)
     resource-control (>= 0.0.0)
@@ -49,5 +62,7 @@ GRAPH
   windows (1.36.1)
     chef_handler (>= 0.0.0)
   yum (3.5.2)
+  yum-epel (0.5.3)
+    yum (~> 3.0)
   yum-mysql-community (0.1.11)
     yum (>= 3.0)
