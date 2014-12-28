@@ -1,0 +1,54 @@
+{
+  "name": "base",
+  "description": "Base role applied to every node",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "authorization": {
+      "sudo": {
+        "passwordless": false,
+        "include_sudoers_d": true
+      }
+    },
+    "chef_client": {
+      "interval": 1620,
+      "splay": 600,
+      "log_dir": "/var/log/chef",
+      "log_file": "chef-client.log",
+      "reload_config": false,
+      "config": {
+        "log_level": "info",
+        "chef_server_url": "https://api.opscode.com/organizations/evaryont",
+        "validation_client_name": "evaryont-validator",
+        "ssl_verify_mode": "verify_peer",
+        "verify_api_cert": true
+      }
+    },
+    "nginx": {
+      "repo_source": "nginx",
+      "version": "1.6.2",
+      "status": {
+        "port": 80
+      },
+      "default_site_enabled": false
+    }
+  },
+  "override_attributes": {
+    "omnibus_updater": {
+      "version": "11.16.4",
+      "remove_chef_system_gem": true,
+      "restart_chef_service": true
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[chef-sugar::default]",
+    "recipe[omnibus_updater]",
+    "recipe[chef_handler::default]",
+    "recipe[chef_handler::json_file]",
+    "recipe[apt]",
+    "recipe[git]",
+    "recipe[sudo]",
+    "recipe[sysstat]",
+    "recipe[logrotate]"
+  ]
+}
