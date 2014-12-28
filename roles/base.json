@@ -65,6 +65,6 @@
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
     "recipe[motd::knife_status]",
-    "recipe[ranchhand::motd]"
+    "recipe[ranchhand::update-motd]"
   ]
 }
