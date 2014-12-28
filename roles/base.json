@@ -57,6 +57,9 @@
     "recipe[git]",
     "recipe[sudo]",
     "recipe[sysstat]",
-    "recipe[logrotate]"
+    "recipe[logrotate]",
+    "recipe[chef-client::config]",
+    "recipe[chef-client::service]",
+    "recipe[chef-client::delete_validation]"
   ]
 }
