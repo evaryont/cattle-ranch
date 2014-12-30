@@ -12,9 +12,11 @@ if [[ $roles_diff_lc > 0 ]]; then
   done
 fi
 
-nodes_diff_lc=$(knife diff nodes | wc -l)
-if [[ $nodes_diff_lc > 0 ]]; then
-  for i in nodes/*.json; do
-    knife node from file $i >/dev/null
+dbags_diff_lc=$(knife diff data_bags | wc -l)
+if [[ $dbags_diff_lc > 0 ]]; then
+  for dbag in data_bags/*; do
+    for dbag_item in $dbag/*.json; do
+      knife data_bag from file $dbag $dbag_item $i >/dev/null
+    done
   done
 fi
