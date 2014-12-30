@@ -6,3 +6,5 @@ description      'Helper cookbook for cattle-ranch'
 long_description 'Various helper recipes for my private chef repository'
 version          '0.3.10'
 
+depends 'sshd'
+
