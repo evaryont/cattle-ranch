@@ -20,6 +20,13 @@ ohai_resource.run_action(:reload) if colin_user.updated?
 
 colin_dir = node['etc']['passwd']['colin']['dir']
 
+directory colin_dir do
+  owner 'colin'
+  group 'colin'
+  mode '0700'
+  recursive true
+end
+
 # Make sure that my dotfiles are cloned
 directory File.join(colin_dir,'dotfiles') do
   owner 'colin'
@@ -45,6 +52,7 @@ execute 'rake dotfiles task' do
   cwd File.join(colin_dir,'dotfiles')
   user 'colin'
   group 'colin'
+  environment "DOTFILES_HOME_DIR" => node['etc']['passwd']['colin']['dir']
   action :nothing
 end
 
