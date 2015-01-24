@@ -41,6 +41,20 @@
         "port": 80
       },
       "default_site_enabled": false
+    },
+    "sshd": {
+      "sshd_config": {
+        "Port": 22,
+        "Protocol": 2,
+        "AllowUsers": "colin",
+        "X11Forwarding": "no",
+        "AuthorizedKeysFile": ".ssh/authorized_keys",
+        "ChallengeResponseAuthentication": "no",
+        "UsePAM": "yes",
+        "PrintMotd": "no",
+        "AuthorizedKeysFile": ".ssh/authorized_keys",
+        "PasswordAuthentication": "no"
+      }
     }
   },
   "override_attributes": {
@@ -66,6 +80,7 @@
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
     "recipe[ranchhand::happy_admins]",
+    "recipe[ranchhand::sshd]",
     "recipe[motd::knife_status]",
     "recipe[ranchhand::update-motd]"
   ]
