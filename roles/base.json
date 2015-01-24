@@ -49,11 +49,11 @@
         "AllowUsers": "colin",
         "X11Forwarding": "no",
         "AuthorizedKeysFile": ".ssh/authorized_keys",
-        "ChallengeResponseAuthentication": "no",
         "UsePAM": "yes",
         "PrintMotd": "no",
-        "AuthorizedKeysFile": ".ssh/authorized_keys",
-        "PasswordAuthentication": "no"
+        "ChallengeResponseAuthentication": "no",
+        "PasswordAuthentication": "no",
+        "PubkeyAuthentication": yes
       }
     }
   },

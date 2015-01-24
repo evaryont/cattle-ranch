@@ -3,7 +3,12 @@
 #  - 6.6 on Ubuntu 14.04
 #  - 5.9 on Ubuntu 12.04
 #  - 5.3 on Ubuntu 10.04, CentOS 6
-ssh_version = `ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1')
+ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1'))
+
+if ssh_version < Gem::Version.new("6")
+   Chef::Log.warn "NOPE! Your SSH is TOO OLD. Get version 6 at least (was: #{ssh_version})"
+   return
+end
 
 Chef::Log.debug "Running ssh version #{ssh_version}!"
 
@@ -18,44 +23,63 @@ sftp_server = nil
 end
 
 Chef::Log.debug "SFTP binary found: #{sftp_server}"
-node.default['sshd']['sshd_config']['Subsystem'] = "sftp #{sftp_server}"
+node.default['sshd']['sshd_config']['Subsystem'] = sftp_server ? "sftp #{sftp_server}" : nil
 
-# Since 6.0, openssh has a stronger privilege separation using Linux's seccomp
+# Since 6.0, OpenSSH has a stronger privilege separation using Linux's seccomp
 # mechanism.
-if ssh_version =~ /^6/
-   node.default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'sandbox'
-else
-   # Otherwise use the same ol' isolated child processes
-   node.default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'yes'
-end
+node.default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'sandbox'
 
-host_keys = Dir['/etc/ssh/ssh_host_*']
-#/etc/ssh/ssh_host_ed25519_key   /etc/ssh/ssh_host_rsa_key"
-#    "sshd": {
-#      "sshd_config": {
-#        "HostKey": [ "/etc/ssh/ssh_host_ed25519_key", "/etc/ssh/ssh_host_rsa_key" ]
+# Since 6.5, OpenSSH supports the Ed25519 curve as a public key type.
+if ssh_version >= Gem::Version.new("6.5")
+   Chef::Log.info "OpenSSH supports Ed25519 keys!"
+   node.override['sshd']['sshd_config']['HostKey'] = ['/etc/ssh/ssh_host_ed25519_key', '/etc/ssh/ssh_host_rsa_key']
+else
+   Chef::Log.warn "OpenSSH: No support for Ed25519 keys."
+   # older versions though, will break. So don't break them, and only use RSA.
+   node.override['sshd']['sshd_config']['HostKey'] = ['/etc/ssh/ssh_host_rsa_key']
+end
 
 # Old SSH protocol 2 keys
 %w(dsa ecdsa).each do |keytype|
-   file "/etc/ssh_host_#{keytype}_key" do
+   file "/etc/ssh/ssh_host_#{keytype}_key" do
       action :delete
    end
-   file "/etc/ssh_host_#{keytype}_key.pub" do
+   file "/etc/ssh/ssh_host_#{keytype}_key.pub" do
       action :delete
    end
 end
 
 # And delete SSH protocol 1 keys
-file "/etc/ssh_host_key" do
+file "/etc/ssh/ssh_host_key" do
    action :delete
 end
-file "/etc/ssh_host_key.pub" do
+file "/etc/ssh/ssh_host_key.pub" do
    action :delete
 end
 
+execute 'generate Ed25519 host keys' do
+   command <<-EOBASH
+rm ssh_host_*key*
+ssh-keygen -t rsa -b 4096 -f ssh_host_rsa_key < /dev/null
+ssh-keygen -t ed25519 -f ssh_host_ed25519_key < /dev/null
+EOBASH
+   cwd '/etc/ssh'
+   creates '/etc/ssh/ssh_host_ed25519_key'
+   notifies :restart, 'service[ssh]'
+end
+
+key_exchanges = ["curve25519-sha256@libssh.org","diffie-hellman-group-exchange-sha256"]
+node.override['sshd']['sshd_config']['KexAlgorithms'] = (key_exchanges & `ssh -Q kex`.split("\n").map(&:strip)).join(',')
+
+ciphers = ["chacha20-poly1305@openssh.com","aes256-gcm@openssh.com","aes128-gcm@openssh.com","aes256-ctr","aes192-ctr","aes128-ctr"]
+node.override['sshd']['sshd_config']['Ciphers'] = (ciphers & `ssh -Q cipher`.split("\n").map(&:strip)).join(',')
+
+macs = ["hmac-sha2-512-etm@openssh.com","hmac-sha2-256-etm@openssh.com","hmac-ripemd160-etm@openssh.com","umac-128-etm@openssh.com","hmac-sha2-512","hmac-sha2-256","hmac-ripemd160","umac-128@openssh.com"]
+node.override['sshd']['sshd_config']['MACs'] = (macs & `ssh -Q mac`.split("\n").map(&:strip)).join(',')
+
 if node['hostname'] == 'vagabond'
    # This looks like the virtual machine I use with vagrant to test the configs.
-   # Let vagrant ssh log in, too
+   # Let vagrant ssh in, too
    node.override['sshd']['sshd_config']['AllowUsers'] = node['sshd']['sshd_config']['AllowUsers']+' vagrant'
 end
 
