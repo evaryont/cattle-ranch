@@ -53,7 +53,7 @@
         "PrintMotd": "no",
         "ChallengeResponseAuthentication": "no",
         "PasswordAuthentication": "no",
-        "PubkeyAuthentication": yes
+        "PubkeyAuthentication": "yes"
       }
     }
   },
