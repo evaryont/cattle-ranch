@@ -59,7 +59,7 @@
   },
   "override_attributes": {
     "omnibus_updater": {
-      "version": "11.16.4",
+      "version": "11.18.0",
       "remove_chef_system_gem": true,
       "restart_chef_service": true
     }
