@@ -87,3 +87,9 @@ include_recipe 'sshd::install'
 openssh_server node['sshd']['config_file'] do
    action :create
 end
+
+cookbook_file 'openssh moduli replacement' do
+   path '/etc/ssh/moduli'
+   source 'moduli'
+   mode '0644'
+end
