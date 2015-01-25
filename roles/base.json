@@ -55,6 +55,23 @@
         "PasswordAuthentication": "no",
         "PubkeyAuthentication": "yes"
       }
+    },
+    "system": {
+      "timezone": "UTC",
+      "domain_name": "evaryont.me"
+    },
+    "locale": {
+      "lang": "en_US.UTF-8",
+      "lc_all": "en_US.UTF-8"
+    },
+    "apt_periodic": {
+      "auto_apt_enable": "1",
+      "download_upgradeable_interval": "7",
+      "autoclean_interval": "5",
+      "unattended_upgrade_interval": "2",
+      "unattended_upgrades": {
+        "minimal_steps": "true"
+      }
     }
   },
   "override_attributes": {
@@ -70,8 +87,12 @@
     "recipe[omnibus_updater]",
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
+    "recipe[system::default]",
+    "recipe[locale::default]",
+    "recipe[auditd::default]",
     "recipe[brightbox-ruby::default]",
     "recipe[apt::default]",
+    "recipe[apt-periodic::default]",
     "recipe[git::default]",
     "recipe[sudo::default]",
     "recipe[sysstat::default]",

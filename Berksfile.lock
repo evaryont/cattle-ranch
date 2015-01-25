@@ -1,5 +1,10 @@
 DEPENDENCIES
   apt
+  apt-periodic (~> 0.2.0)
+  auditd
+    git: https://github.com/yakara-ltd/auditd
+    revision: 63faedd23abfd768aa0f13c698cb3e9b335836f8
+    ref: 63faedd
   brightbox-ruby (~> 1.2.0)
   build-essential
   chef-client
@@ -9,6 +14,7 @@ DEPENDENCIES
     path: cookbooks/feedbin
   git
   hipchat
+  locale
   logrotate
   motd
     git: https://github.com/evaryont/motd
@@ -21,10 +27,14 @@ DEPENDENCIES
   sshd
   sudo
   sysstat
+  system
   taskwarrior
 
 GRAPH
   apt (2.6.0)
+  apt-periodic (0.2.0)
+    apt (>= 0.0.0)
+  auditd (0.1.6)
   aws (2.5.0)
   bluepill (2.3.1)
     rsyslog (>= 0.0.0)
@@ -62,6 +72,8 @@ GRAPH
     yum-epel (>= 0.0.0)
   hipchat (0.4.0)
     chef_handler (>= 0.0.0)
+  hostsfile (2.4.5)
+  locale (1.0.2)
   logrotate (1.7.0)
   motd (0.5.2)
     chef_handler (>= 0.0.0)
@@ -110,6 +122,10 @@ GRAPH
   sshd (1.1.1)
   sudo (2.7.1)
   sysstat (1.3.2)
+  system (0.3.3)
+    apt (>= 0.0.0)
+    cron (>= 0.0.0)
+    hostsfile (>= 0.0.0)
   taskwarrior (1.1.3)
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
