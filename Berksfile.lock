@@ -92,7 +92,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.3.10)
+  ranchhand (0.4.0)
     sshd (>= 0.0.0)
   rbac (1.0.2)
   redisio (2.2.4)
