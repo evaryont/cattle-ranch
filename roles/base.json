@@ -93,7 +93,6 @@
     "recipe[brightbox-ruby::default]",
     "recipe[apt::default]",
     "recipe[apt-periodic::default]",
-    "recipe[iptables-ng::default]",
     "recipe[ranchhand::popcon]",
     "recipe[git::default]",
     "recipe[sudo::default]",
@@ -102,10 +101,11 @@
     "recipe[chef-client::config]",
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
+    "recipe[ranchhand::firewall]",
+    "recipe[ranchhand::sysctl]",
     "recipe[ranchhand::happy_admins]",
     "recipe[ranchhand::sshd]",
     "recipe[motd::knife_status]",
-    "recipe[ranchhand::update-motd]",
-    "recipe[iptables-ng::manage]"
+    "recipe[ranchhand::update-motd]"
   ]
 }

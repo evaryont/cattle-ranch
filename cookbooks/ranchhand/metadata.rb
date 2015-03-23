@@ -8,3 +8,4 @@ version          '0.4.0'
 
 depends 'sshd'
 depends 'iptables-ng'
+depends 'sysctl'

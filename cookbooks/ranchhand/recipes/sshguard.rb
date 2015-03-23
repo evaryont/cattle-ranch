@@ -7,6 +7,10 @@ service 'sshguard' do
   action [:enable, :start]
 end
 
+iptables_ng_chain 'SSHGUARD' do
+  policy 'DROP [0:0]'
+end
+
 iptables_ng_rule '39-sshguard' do
   chain 'INPUT'
   rule '-j SSHGUARD'
