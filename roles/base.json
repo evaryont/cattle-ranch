@@ -72,6 +72,9 @@
       "unattended_upgrades": {
         "minimal_steps": "true"
       }
+    },
+    "ntp": {
+      "servers": ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"]
     }
   },
   "override_attributes": {
@@ -106,6 +109,7 @@
     "recipe[ranchhand::sysctl]",
     "recipe[ranchhand::happy_admins]",
     "recipe[ranchhand::sshd]",
+    "recipe[ntp::default]",
     "recipe[motd::knife_status]",
     "recipe[ranchhand::update-motd]"
   ]

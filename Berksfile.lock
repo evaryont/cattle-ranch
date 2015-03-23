@@ -18,6 +18,7 @@ DEPENDENCIES
     git: https://github.com/evaryont/motd
     revision: 16d82f0422e289c4b8950bb40eb42d4a0d62b7eb
   mysql
+  ntp
   omnibus_updater (~> 1.0.2)
   os-hardening
   php-fpm
@@ -64,6 +65,7 @@ GRAPH
   mysql (6.0.6)
     smf (>= 0.0.0)
     yum-mysql-community (>= 0.0.0)
+  ntp (1.7.0)
   ohai (2.0.1)
   omnibus_updater (1.0.2)
   os-hardening (1.2.0)
