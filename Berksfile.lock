@@ -19,6 +19,7 @@ DEPENDENCIES
     revision: 16d82f0422e289c4b8950bb40eb42d4a0d62b7eb
   mysql
   omnibus_updater (~> 1.0.2)
+  os-hardening
   php-fpm
   ranchhand
     path: cookbooks/ranchhand
@@ -65,6 +66,10 @@ GRAPH
     yum-mysql-community (>= 0.0.0)
   ohai (2.0.1)
   omnibus_updater (1.0.2)
+  os-hardening (1.2.0)
+    apt (>= 0.0.0)
+    sysctl (>= 0.3.0)
+    yum (>= 0.0.0)
   perl (1.2.4)
   php-fpm (0.7.0)
     apt (>= 0.0.0)
