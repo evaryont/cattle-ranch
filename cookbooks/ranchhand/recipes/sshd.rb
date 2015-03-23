@@ -5,6 +5,7 @@
 #  - 5.3 on Ubuntu 10.04, CentOS 6
 ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1'))
 
+# Bail on SSH versions less than 6
 if ssh_version < Gem::Version.new("6")
    Chef::Log.warn "NOPE! Your SSH is TOO OLD. Get version 6 at least (was: #{ssh_version})"
    return
@@ -12,6 +13,8 @@ end
 
 Chef::Log.debug "Running ssh version #{ssh_version}!"
 
+# Try finding the sftp binary in various locations. Arch puts it in a directory
+# that the original sshd cookbook doesn't consider.
 sftp_server = nil
 %w[/usr/lib/openssh/sftp-server
    /usr/libexec/openssh/sftp-server
@@ -39,7 +42,7 @@ else
    node.override['sshd']['sshd_config']['HostKey'] = ['/etc/ssh/ssh_host_rsa_key']
 end
 
-# Old SSH protocol 2 keys
+# Delete old SSH protocol 2 keys
 %w(dsa ecdsa).each do |keytype|
    file "/etc/ssh/ssh_host_#{keytype}_key" do
       action :delete
@@ -93,3 +96,10 @@ cookbook_file 'openssh moduli replacement' do
    source 'moduli'
    mode '0644'
 end
+
+iptables_ng_rule '40-ssh' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 22 --match state --state NEW --jump ACCEPT'
+end
+
+include_recipe 'ranchhand::sshguard'

@@ -7,4 +7,4 @@ long_description 'Various helper recipes for my private chef repository'
 version          '0.4.0'
 
 depends 'sshd'
-
+depends 'iptables-ng'

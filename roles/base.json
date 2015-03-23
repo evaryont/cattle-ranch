@@ -93,6 +93,8 @@
     "recipe[brightbox-ruby::default]",
     "recipe[apt::default]",
     "recipe[apt-periodic::default]",
+    "recipe[iptables-ng::default]",
+    "recipe[ranchhand::popcon]",
     "recipe[git::default]",
     "recipe[sudo::default]",
     "recipe[sysstat::default]",
@@ -103,6 +105,7 @@
     "recipe[ranchhand::happy_admins]",
     "recipe[ranchhand::sshd]",
     "recipe[motd::knife_status]",
-    "recipe[ranchhand::update-motd]"
+    "recipe[ranchhand::update-motd]",
+    "recipe[iptables-ng::manage]"
   ]
 }
