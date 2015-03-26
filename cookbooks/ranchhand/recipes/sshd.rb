@@ -110,4 +110,4 @@ if debian? or ubuntu?
 elsif rhel? or fedora?
    node.override['mosh']['use_epel'] = true
 end
-include_recipe 'mosh::default'
+include_recipe 'mosh::default' if node['ranchhand']['mosh']
