@@ -103,3 +103,11 @@ iptables_ng_rule '40-ssh' do
 end
 
 include_recipe 'ranchhand::sshguard'
+
+# Do a bit of detection based on platform family
+if debian? or ubuntu?
+   node.override['mosh']['use_ppa'] = true
+elsif rhel? or fedora?
+   node.override['mosh']['use_epel'] = true
+end
+include_recipe 'mosh::default'

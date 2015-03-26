@@ -23,6 +23,7 @@ cookbook 'auditd', git: 'https://github.com/yakara-ltd/auditd', ref: '63faedd23a
 cookbook 'apt-periodic', '~> 0.2.0'
 cookbook 'os-hardening', '~> 1.2.0'
 cookbook 'ntp'
+cookbook 'mosh'
 
 Dir['cookbooks/*'].each do |cookbook_dir|
   cookbook File.basename(cookbook_dir), path: cookbook_dir

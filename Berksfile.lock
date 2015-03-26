@@ -16,6 +16,7 @@ DEPENDENCIES
   logrotate
   mailbag
     path: cookbooks/mailbag
+  mosh
   motd
     git: https://github.com/evaryont/motd
     revision: 16d82f0422e289c4b8950bb40eb42d4a0d62b7eb
@@ -67,7 +68,10 @@ GRAPH
   mailbag (0.1.0)
     dovecot (>= 0.0.0)
     postfix (>= 0.0.0)
-    ranchhand (>= 0.0.0)
+  mosh (0.4.0)
+    apt (>= 0.0.0)
+    yum (>= 0.0.0)
+    yum-epel (>= 0.0.0)
   motd (0.5.2)
     chef_handler (>= 0.0.0)
   mysql (6.0.6)
@@ -90,6 +94,7 @@ GRAPH
     yum-epel (>= 0.0.0)
   ranchhand (0.4.0)
     iptables-ng (>= 0.0.0)
+    mosh (>= 0.0.0)
     sshd (>= 0.0.0)
     sysctl (>= 0.0.0)
   rbac (1.0.2)
