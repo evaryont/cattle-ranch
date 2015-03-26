@@ -91,6 +91,7 @@
     "recipe[omnibus_updater]",
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
+    "recipe[ranchhand::rewind]",
     "recipe[system::default]",
     "recipe[locale::default]",
     "recipe[auditd::default]",
