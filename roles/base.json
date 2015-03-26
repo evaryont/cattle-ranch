@@ -52,6 +52,7 @@
         "UsePAM": "yes",
         "PrintMotd": "no",
         "UseDNS": "no",
+        "GSSAPIAuthentication": "no",
         "ChallengeResponseAuthentication": "no",
         "PasswordAuthentication": "no",
         "PubkeyAuthentication": "yes"
