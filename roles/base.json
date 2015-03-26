@@ -55,6 +55,7 @@
         "GSSAPIAuthentication": "no",
         "ChallengeResponseAuthentication": "no",
         "PasswordAuthentication": "no",
+        "LogLevel": "DEBUG",
         "PubkeyAuthentication": "yes"
       }
     },
@@ -78,7 +79,13 @@
     "ntp": {
       "servers": ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"],
       "ignore": "all"
-    }
+    },
+    "network": {
+      "ipv6": {
+        "enable": true
+      }
+    },
+    "config_disclaimer": "This configuration is set by chef from cattle-ranch."
   },
   "override_attributes": {
     "omnibus_updater": {
