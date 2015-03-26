@@ -80,7 +80,7 @@
   },
   "override_attributes": {
     "omnibus_updater": {
-      "version": "11.18.0",
+      "version": "12.1.2",
       "remove_chef_system_gem": true,
       "restart_chef_service": true
     }
@@ -106,6 +106,7 @@
     "recipe[chef-client::config]",
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
+    "recipe[chef-vault::default]",
     "recipe[os-hardening::default]",
     "recipe[ranchhand::firewall]",
     "recipe[ranchhand::sysctl]",

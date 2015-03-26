@@ -8,3 +8,4 @@ version          '0.1.0'
 
 depends 'postfix'
 depends 'dovecot'
+depends 'encrypted_volume'

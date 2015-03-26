@@ -3,6 +3,8 @@
 # Bash 'strict' mode
 set -euo pipefail
 
+knife block evaryont
+
 berks -q && berks upload -q
 
 roles_diff_lc=$(knife diff roles | wc -l)

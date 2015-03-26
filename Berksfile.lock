@@ -9,6 +9,7 @@ DEPENDENCIES
   build-essential
   chef-client
   chef-sugar
+  chef-vault
   chef_handler
   git
   hipchat
@@ -46,12 +47,15 @@ GRAPH
     logrotate (>= 1.2.0)
     windows (~> 1.11)
   chef-sugar (2.4.1)
+  chef-vault (1.2.5)
   chef_handler (1.1.6)
   cmake (0.3.0)
   cron (1.6.1)
   dmg (2.2.2)
   dovecot (2.0.0)
     ohai (>= 0.0.0)
+  encrypted_volume (0.1.0)
+    chef-vault (>= 0.0.0)
   git (4.1.0)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
@@ -67,6 +71,7 @@ GRAPH
   logrotate (1.7.0)
   mailbag (0.1.0)
     dovecot (>= 0.0.0)
+    encrypted_volume (>= 0.0.0)
     postfix (>= 0.0.0)
   mosh (0.4.0)
     apt (>= 0.0.0)
@@ -92,7 +97,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.4.0)
+  ranchhand (0.4.1)
     iptables-ng (>= 0.0.0)
     mosh (>= 0.0.0)
     sshd (>= 0.0.0)
