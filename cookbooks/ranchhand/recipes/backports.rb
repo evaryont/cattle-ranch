@@ -4,7 +4,10 @@ if %w(jessie wheezy).include? node['lsb']['codename']
     distribution "#{node['lsb']['codename']}-backports"
     components   [ 'main' ]
   end
+end
 
+# Only install OpenSSH from backports when on wheezy
+if node['lsb']['codename'] == 'wheezy'
   # install the latest OpenSSH from the backports repository
   apt_package 'openssh-client' do
     action :upgrade
