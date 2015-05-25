@@ -78,6 +78,7 @@ iptables_ng_rule '04_stateful-allow-icmpv6-neighbor-discovery' do
   chain 'INPUT'
   rule '-p 41 -j ACCEPT'
   ip_version 6
+  only_if { node['ranchhand']['ipv6'] }
 end # See also, the invalid packet drop
 
 # Find every loopback device, regardless of name, and allow all of it's traffic
@@ -99,6 +100,7 @@ iptables_ng_rule '04_allow-ICMPv6-ping' do
   chain 'INPUT'
   rule '-p icmpv6 --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT'
   ip_version 6
+  only_if { node['ranchhand']['ipv6'] }
 end
 
 iptables_ng_rule '04_block-fake-localhost' do
