@@ -84,6 +84,7 @@ if @ed22519_key
       cwd '/etc/ssh'
       creates '/etc/ssh/ssh_host_ed25519_key'
       notifies :restart, 'service[ssh]'
+      timeout 7200
    end
 end
 
@@ -94,6 +95,7 @@ EOBASH
    cwd '/etc/ssh'
    creates '/etc/ssh/ssh_host_rsa_key'
    notifies :restart, 'service[ssh]'
+   timeout 7200
 end
 
 key_exchanges = ["curve25519-sha256@libssh.org","diffie-hellman-group-exchange-sha256"]
