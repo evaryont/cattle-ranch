@@ -3,7 +3,7 @@
 # Bash 'strict' mode
 set -euo pipefail
 
-knife block evaryont
+knife block evaryont >/dev/null
 
 berks -q && berks upload -q
 
@@ -18,7 +18,7 @@ dbags_diff_lc=$(knife diff data_bags | wc -l)
 if [[ $dbags_diff_lc > 0 ]]; then
   for dbag in data_bags/*; do
     for dbag_item in $dbag/*.json; do
-      knife data bag from file $(basename $dbag) $dbag_item
+      knife data bag from file $(basename $dbag) $dbag_item >/dev/null
     done
   done
 fi
