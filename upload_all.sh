@@ -18,7 +18,7 @@ dbags_diff_lc=$(knife diff data_bags | wc -l)
 if [[ $dbags_diff_lc > 0 ]]; then
   for dbag in data_bags/*; do
     for dbag_item in $dbag/*.json; do
-      knife data_bag from file $dbag $dbag_item $i >/dev/null
+      knife data_bag from file $dbag $dbag_item >/dev/null
     done
   done
 fi
