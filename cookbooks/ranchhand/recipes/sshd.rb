@@ -1,5 +1,6 @@
 # Grab the ssh version (like 6.6.1p1, or 5.3p3). Commonly seen SSH versions:
 #  - 6.7 on Arch
+#  - 6.0 on Debian 7
 #  - 6.6 on Ubuntu 14.04
 #  - 5.9 on Ubuntu 12.04
 #  - 5.3 on Ubuntu 10.04, CentOS 6
