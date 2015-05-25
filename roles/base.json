@@ -100,7 +100,6 @@
     "recipe[system::default]",
     "recipe[ranchhand::locale]",
     "recipe[auditd::default]",
-    "recipe[brightbox-ruby::default]",
     "recipe[apt::default]",
     "recipe[apt-periodic::default]",
     "recipe[ranchhand::popcon]",
