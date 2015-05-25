@@ -1,10 +1,23 @@
+# Allow SSH through the firewall
+iptables_ng_rule '40-ssh' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 22 --match state --state NEW --jump ACCEPT'
+end
+
+# This is a slight improvement, even for older versions
+cookbook_file 'openssh moduli replacement' do
+   path '/etc/ssh/moduli'
+   source 'moduli'
+   mode '0644'
+end
+
 # Grab the ssh version (like 6.6.1p1, or 5.3p3). Commonly seen SSH versions:
 #  - 6.7 on Arch
 #  - 6.0 on Debian 7
 #  - 6.6 on Ubuntu 14.04
 #  - 5.9 on Ubuntu 12.04
 #  - 5.3 on Ubuntu 10.04, CentOS 6
-ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1'))
+ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1').split('p')[0])
 
 # Bail on SSH versions less than 6
 if ssh_version < Gem::Version.new("6")
@@ -90,17 +103,6 @@ end
 include_recipe 'sshd::install'
 openssh_server node['sshd']['config_file'] do
    action :create
-end
-
-cookbook_file 'openssh moduli replacement' do
-   path '/etc/ssh/moduli'
-   source 'moduli'
-   mode '0644'
-end
-
-iptables_ng_rule '40-ssh' do
-  chain 'INPUT'
-  rule '--protocol tcp --dport 22 --match state --state NEW --jump ACCEPT'
 end
 
 include_recipe 'ranchhand::sshguard'
