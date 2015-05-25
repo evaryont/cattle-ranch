@@ -13,4 +13,4 @@ EOLOCALE
   mode '0644'
 end
 
-include_recipe 'recipe[locale::default]'
+include_recipe 'locale::default'
