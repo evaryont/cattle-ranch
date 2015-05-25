@@ -25,6 +25,7 @@ cookbook 'apt-periodic', '~> 0.2.0'
 cookbook 'os-hardening', '~> 1.2.0'
 cookbook 'ntp'
 cookbook 'mosh'
+cookbook 'pam', '~> 1.0.1'
 
 Dir['cookbooks/*'].each do |cookbook_dir|
   cookbook File.basename(cookbook_dir), path: cookbook_dir

@@ -25,6 +25,7 @@ DEPENDENCIES
   ntp
   omnibus_updater (~> 1.0.2)
   os-hardening (~> 1.2.0)
+  pam (~> 1.0.1)
   php-fpm
   ranchhand
     path: cookbooks/ranchhand
@@ -88,6 +89,7 @@ GRAPH
     sysctl (>= 0.3.0)
     yum (>= 0.0.0)
   packagecloud (0.0.18)
+  pam (1.0.1)
   perl (1.2.4)
   php-fpm (0.7.4)
     apt (>= 0.0.0)
@@ -96,10 +98,11 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.4.6)
+  ranchhand (0.5.0)
     iptables-ng (>= 0.0.0)
     locale (>= 0.0.0)
     mosh (>= 0.0.0)
+    pam (>= 0.0.0)
     sshd (>= 0.0.0)
     sysctl (>= 0.0.0)
   rbac (1.0.3)
