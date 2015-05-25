@@ -17,6 +17,8 @@ end
 #  - 6.6 on Ubuntu 14.04
 #  - 5.9 on Ubuntu 12.04
 #  - 5.3 on Ubuntu 10.04, CentOS 6
+#
+# See also ranchhand::backports to upgrade some distro's
 ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1').split('p')[0])
 
 # Bail on SSH versions less than 6
@@ -84,7 +86,6 @@ if @ed22519_key
       cwd '/etc/ssh'
       creates '/etc/ssh/ssh_host_ed25519_key'
       notifies :restart, 'service[ssh]'
-      timeout 7200
    end
 end
 
@@ -95,7 +96,6 @@ EOBASH
    cwd '/etc/ssh'
    creates '/etc/ssh/ssh_host_rsa_key'
    notifies :restart, 'service[ssh]'
-   timeout 7200
 end
 
 key_exchanges = ["curve25519-sha256@libssh.org","diffie-hellman-group-exchange-sha256"]
