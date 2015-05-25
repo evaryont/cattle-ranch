@@ -5,7 +5,15 @@ if %w(jessie wheezy).include? node['lsb']['codename']
     components   [ 'main' ]
   end
 
-  # install the latest openssh server from the backports repository
+  # install the latest OpenSSH from the backports repository
+  apt_package 'openssh-client' do
+    action :upgrade
+    default_release "#{node['lsb']['codename']}-backports"
+  end
+  apt_package 'openssh-sftp-server' do
+    action :upgrade
+    default_release "#{node['lsb']['codename']}-backports"
+  end
   apt_package 'openssh-server' do
     action :upgrade
     default_release "#{node['lsb']['codename']}-backports"
