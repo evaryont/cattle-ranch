@@ -63,10 +63,6 @@
       "timezone": "UTC",
       "domain_name": "evaryont.me"
     },
-    "locale": {
-      "lang": "en_US.UTF-8",
-      "lc_all": "en_US.UTF-8"
-    },
     "apt_periodic": {
       "auto_apt_enable": "1",
       "download_upgradeable_interval": "7",
@@ -85,7 +81,7 @@
         "enable": true
       }
     },
-    "config_disclaimer": "This configuration is set by chef from cattle-ranch."
+    "config_disclaimer": "This configuration is set by chef from cattle-ranch. Often nuked from orbit."
   },
   "override_attributes": {
     "omnibus_updater": {
@@ -102,7 +98,7 @@
     "recipe[chef_handler::json_file]",
     "recipe[ranchhand::rewind]",
     "recipe[system::default]",
-    "recipe[locale::default]",
+    "recipe[ranchhand::locale]",
     "recipe[auditd::default]",
     "recipe[brightbox-ruby::default]",
     "recipe[apt::default]",
