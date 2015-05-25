@@ -21,7 +21,7 @@ USE_HTTP="yes"
 # Needs a modern popcon client & gpg installed
 ENCRYPT="maybe"
 EOPOPCON
-  only_if { File.exists? '/etc/cron.daily/popularity-contest' && !node["keys"]["ssh"]["host_rsa_public"].nil? }
+  only_if { File.exists?('/etc/cron.daily/popularity-contest') && !node["keys"]["ssh"]["host_rsa_public"].nil? }
 end
 
 # TODO: pkgstats for arch linux
