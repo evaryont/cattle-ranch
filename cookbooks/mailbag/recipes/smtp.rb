@@ -14,7 +14,7 @@ pf_main['mydomain'] = mail_server_domain
 # we're an MX server, we should use the same thing as $mydomain.
 pf_main['myorigin'] = mail_server_domain
 # Listen on all IP interfaces. IPv6 inlcuded!
-pf_main["inet-interfaces"] = "all"
+pf_main['inet_interfaces'] = "all"
 # Generic smtpd banner goes here, less discoverable info the better
 pf_main['smtpd_banner'] = '$myhostname ESMTP $mail_name'
 # ... TODO: describe
@@ -56,7 +56,10 @@ pf_main['recipient_delimiter'] = '.'
 
 include_recipe 'postfix::server'
 
+chef_gem 'chef-rewind'
+require 'chef/rewind'
+
 rewind "template[#{node['postfix']['conf_dir']}/master.cf]" do
-  template 'my_pf_master.cf.erb'
+  source 'my_pf_master.cf.erb'
   cookbook 'mailbag'
 end
