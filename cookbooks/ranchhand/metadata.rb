@@ -4,7 +4,7 @@ maintainer_email 'colin@shea.at'
 license          'all_rights'
 description      'Helper cookbook for cattle-ranch'
 long_description 'Various helper recipes for my private chef repository'
-version          '0.5.13'
+version          '0.5.14'
 
 depends 'sshd'
 depends 'iptables-ng'
