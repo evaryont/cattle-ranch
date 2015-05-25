@@ -81,7 +81,7 @@ end
 if @ed22519_key
    execute 'generate Ed25519 host keys' do
       command <<-EOBASH
-   ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key < /dev/null
+   ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key < /dev/null
    EOBASH
       cwd '/etc/ssh'
       creates '/etc/ssh/ssh_host_ed25519_key'
@@ -91,7 +91,7 @@ end
 
 execute 'generate RSA 4096 host keys' do
    command <<-EOBASH
-ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key < /dev/null
+ssh-keygen -t rsa -b 4096 -P "" -f /etc/ssh/ssh_host_rsa_key < /dev/null
 EOBASH
    cwd '/etc/ssh'
    creates '/etc/ssh/ssh_host_rsa_key'
