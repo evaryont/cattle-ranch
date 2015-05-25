@@ -102,6 +102,7 @@
     "recipe[auditd::default]",
     "recipe[apt::default]",
     "recipe[apt-periodic::default]",
+    "recipe[ranchhand::backports]",
     "recipe[ranchhand::popcon]",
     "recipe[git::default]",
     "recipe[sudo::default]",

@@ -98,7 +98,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.5.7)
+  ranchhand (0.5.8)
     iptables-ng (>= 0.0.0)
     locale (>= 0.0.0)
     mosh (>= 0.0.0)
