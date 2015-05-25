@@ -89,7 +89,7 @@
   },
   "override_attributes": {
     "omnibus_updater": {
-      "version": "12.1.2",
+      "version": "12.3.0",
       "remove_chef_system_gem": true,
       "restart_chef_service": true
     }
