@@ -1,3 +1,6 @@
+# Ensure necessary packages are installed
+include_recipe 'iptables-ng::install'
+
 # Set default policies for iptables chains
 iptables_ng_chain 'input drop' do
   chain 'INPUT'
