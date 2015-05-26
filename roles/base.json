@@ -60,7 +60,7 @@
       }
     },
     "system": {
-      "timezone": "UTC",
+      "timezone": "Etc/UTC",
       "domain_name": "evaryont.me"
     },
     "apt_periodic": {
