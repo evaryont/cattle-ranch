@@ -68,7 +68,7 @@ GRAPH
   iptables-ng (2.2.6)
   locale (1.0.2)
   logrotate (1.9.1)
-  mailbag (0.1.7)
+  mailbag (0.1.8)
     dovecot (>= 0.0.0)
     encrypted_volume (>= 0.0.0)
     postfix (>= 0.0.0)
