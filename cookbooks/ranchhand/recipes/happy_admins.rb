@@ -1,8 +1,9 @@
 # Various packages that I like installed
 package 'htop'
 package 'zsh'
-package 'git-doc' if node['platform'] == 'ubuntu'
-package 'vim-nox' if node['platform'] == 'ubuntu'
+node['ranchhand']['extra_packages'].each do |extra_pkg_name|
+  package extra_pkg_name
+end
 
 # Ensure that I, the admin/user, exist
 colin_user = user 'colin' do
@@ -94,24 +95,6 @@ EOYUBIKEY
 end
 
 node.default['pam_d']['services'] = {
-  'sudo' => {
-    'main' => {
-      '_1' => { # The hash key name is unnecessary
-        'interface' => '#%PAM-1.0' # magic comment?
-      },
-      '_2' => {
-        'interface' => 'auth',
-        'control_flag' => 'sufficient',
-        'name' => 'pam_yubico.so',
-        'args' => 'id=21505 secret=ZMLXN+bZRePH/goMko1NwTuHW8Y=M urllist=https://api.yubico.com/wsapi/2.0/verify',
-        'disabled' => false
-      }
-    },
-    'includes' => [
-      "common-auth",
-      "common-account",
-      "common-session-noninteractive"
-    ]
-  }
+  'sudo' => node['ranchhand']['sudo_yubikey']
 }
 include_recipe 'pam'

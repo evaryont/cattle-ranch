@@ -1,9 +1,3 @@
-#
-# Cookbook Name:: ranchhand
-# Recipe:: motd
-#
-# Copyright (c) 2014 The Authors, All Rights Reserved.
-
 # Only run this particular recipe on Ubuntu nodes.
 if node["platform"] != "ubuntu"
   return
@@ -21,10 +15,10 @@ file "/etc/update-motd.d/51-cloudguest" do
 end
 file "/etc/update-motd.d/50-landscape-sysinfo" do
   action :delete
-  manage_symlink_source false
+  manage_symlink_source false # make sure to delete just the symlink itself in update-motd.d
 end
 
-# Ensure we have landscape-common installed so sysinfo below works
+# Ensure we have landscape-common installed so the sysinfo below works
 package 'landscape-common'
 
 # The system information is still useful, so show that. However, disable the

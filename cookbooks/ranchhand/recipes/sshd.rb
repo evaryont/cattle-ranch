@@ -12,13 +12,13 @@ cookbook_file 'openssh moduli replacement' do
 end
 
 # Grab the ssh version (like 6.6.1p1, or 5.3p3). Commonly seen SSH versions:
-#  - 6.7 on Arch
+#  - 6.9 on Arch
 #  - 6.0 on Debian 7
 #  - 6.6 on Ubuntu 14.04
 #  - 5.9 on Ubuntu 12.04
 #  - 5.3 on Ubuntu 10.04, CentOS 6
 #
-# See also ranchhand::backports to upgrade some distro's
+# See also ranchhand::backports to upgrade some distros
 ssh_version = Gem::Version.new(`ssh -V 2>&1`.sub(/^OpenSSH_([\d.p]+)[, ].*/m, '\1').split('p')[0])
 
 # Bail on SSH versions less than 6
@@ -110,7 +110,7 @@ node.override['sshd']['sshd_config']['MACs'] = (macs & `ssh -Q mac`.split("\n").
 if node['hostname'] == 'vagabond'
    # This looks like the virtual machine I use with vagrant to test the configs.
    # Let vagrant ssh in, too
-   node.override['sshd']['sshd_config']['AllowUsers'] = node['sshd']['sshd_config']['AllowUsers']+' vagrant'
+   node.override['sshd']['sshd_config']['AllowUsers'] += ' vagrant'
 end
 
 include_recipe 'sshd::install'
