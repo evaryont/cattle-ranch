@@ -33,7 +33,7 @@ if node['platform'] == 'ubuntu'
   }
 
 elsif node['platform'] == 'arch'
-  node.default['ranchhand']['extra_packages'] = %w(vim vim-runtime)
+  node.default['ranchhand']['extra_packages'] = %w(vim vim-runtime the_silver_searcher)
 
   node.default['ranchhand']['sudo_yubikey'] = {
     'main' => {
