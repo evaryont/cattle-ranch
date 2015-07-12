@@ -93,7 +93,7 @@
   "chef_type": "role",
   "run_list": [
     "recipe[chef-sugar::default]",
-    "recipe[omnibus_updater]",
+    "recipe[ranchhand::chef_omnibus]",
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
     "recipe[ranchhand::rewind]",
