@@ -71,5 +71,8 @@ elsif node['platform'] == 'arch'
     },
     'includes' => [ ]
   }
+
+  node.default['sysctl']['conf_dir'] = '/etc/sysctl.d'
+  node.default['sysctl']['conf_file'] = File.join(node['sysctl']['conf_dir'], '/99-chef-attributes.conf')
 end
 
