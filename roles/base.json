@@ -100,7 +100,7 @@
     "recipe[system::default]",
     "recipe[ranchhand::locale]",
     "recipe[apt::default]",
-    "recipe[apt-periodic::default]",
+    "recipe[ranchhand::auto_upgrade]",
     "recipe[ranchhand::backports]",
     "recipe[ranchhand::popcon]",
     "recipe[git::default]",
