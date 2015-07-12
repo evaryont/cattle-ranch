@@ -20,3 +20,5 @@ if [[ $dbags_diff_lc > 0 ]]; then
     done
   done
 fi
+
+git push -u origin master
