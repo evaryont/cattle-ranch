@@ -21,4 +21,4 @@ if [[ $dbags_diff_lc > 0 ]]; then
   done
 fi
 
-git push -u origin master
+git push -q -u origin master
