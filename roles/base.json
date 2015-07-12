@@ -111,7 +111,7 @@
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
     "recipe[chef-vault::default]",
-    "recipe[os-hardening::default]",
+    "recipe[ranchhand::hardening]",
     "recipe[ranchhand::firewall]",
     "recipe[ranchhand::sysctl]",
     "recipe[ranchhand::happy_admins]",
