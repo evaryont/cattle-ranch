@@ -85,7 +85,7 @@ if @ed22519_key
    EOBASH
       cwd '/etc/ssh'
       creates '/etc/ssh/ssh_host_ed25519_key'
-      notifies :restart, 'service[ssh]'
+      notifies :restart, "service[#{node['sshd']['service_name']}]"
    end
 end
 
@@ -95,7 +95,7 @@ ssh-keygen -t rsa -b 4096 -P "" -f /etc/ssh/ssh_host_rsa_key < /dev/null
 EOBASH
    cwd '/etc/ssh'
    creates '/etc/ssh/ssh_host_rsa_key'
-   notifies :restart, 'service[ssh]'
+   notifies :restart, "service[#{node['sshd']['service_name']}]"
 end
 
 key_exchanges = ["curve25519-sha256@libssh.org","diffie-hellman-group-exchange-sha256"]
