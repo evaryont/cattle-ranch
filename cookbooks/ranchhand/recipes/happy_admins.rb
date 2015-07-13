@@ -50,12 +50,13 @@ git File.join(colin_dir,'dotfiles') do
   notifies :run, 'execute[rake dotfiles task]'
 end
 
+cmd_env_hash = {"DOTFILES_HOME_DIR" => colin_dir}
 execute 'rake dotfiles task' do
   command 'rake dotfiles'
   cwd File.join(colin_dir,'dotfiles')
   user @admin_name
   group @admin_name
-  environment {"DOTFILES_HOME_DIR" => colin_dir}
+  environment cmd_env_hash
   action :nothing
 end
 
