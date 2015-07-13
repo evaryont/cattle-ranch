@@ -15,6 +15,14 @@ end
 # Install the chosen web server. It's expected that it's only one or the other.
 if node['ranchhand']['httpd'] == 'nginx'
   include_recipe 'nginx::default'
+
+  # delete some default files that interfere with sites-available
+  file '/etc/nginx/conf.d/example_ssl.conf' do
+    action :remove
+  end
+  file '/etc/nginx/conf.d/default.conf' do
+    action :remove
+  end
 elsif node['ranchhand']['httpd'] == 'apache'
   include_recipe 'apache2::default'
 else
