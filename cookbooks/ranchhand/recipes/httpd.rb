@@ -21,3 +21,5 @@ else
   # If we don't know what the admin meant, yell at 'em.
   Chef::Log.fatal! "Unknown type of http server. What does '#{node['ranchhand']['httpd']}' mean?!?"
 end
+
+include_recipe 'websites::httpd'

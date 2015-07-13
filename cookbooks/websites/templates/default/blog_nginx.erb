@@ -1,0 +1,11 @@
+# <%= node['config_disclaimer'] %>
+
+# Configuration for my personal website. It's expected that it'll be
+# self-contained and static. See also,
+# https://github.com/evaryont/evaryont.github.io
+server {
+  server_name evaryont.me;
+  access_log logs/evaryont.me.log main;
+
+  root /home/<%= node['ranchhand']['admin_name'] %>/public;
+}

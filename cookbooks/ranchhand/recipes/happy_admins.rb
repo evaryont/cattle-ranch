@@ -5,8 +5,10 @@ node['ranchhand']['extra_packages'].each do |extra_pkg_name|
   package extra_pkg_name
 end
 
+@admin_name = node['ranchhand']['admin_name']
+
 # Ensure that I, the admin/user, exist
-colin_user = user 'colin' do
+colin_user = user @admin_name do
   comment 'The admin of this box, Colin Shea'
   shell '/usr/bin/zsh'
   action :nothing
@@ -19,19 +21,19 @@ ohai_resource = ohai 'colin_user_update' do
 end
 ohai_resource.run_action(:reload) if colin_user.updated?
 
-colin_dir = node['etc']['passwd']['colin']['dir']
+colin_dir = node['etc']['passwd'][@admin_name]['dir']
 
 directory colin_dir do
-  owner 'colin'
-  group 'colin'
+  owner @admin_name
+  group @admin_name
   mode '0700'
   recursive true
 end
 
 # Make sure that my dotfiles are cloned
 directory File.join(colin_dir,'dotfiles') do
-  owner 'colin'
-  group 'colin'
+  owner @admin_name
+  group @admin_name
   recursive true
 end
 
@@ -41,8 +43,8 @@ git File.join(colin_dir,'dotfiles') do
   # out, and shipped with Chef-DK, as it includes the fix.
   branch 'refs/heads/master'
   enable_checkout false
-  user 'colin'
-  group 'colin'
+  user @admin_name
+  group @admin_name
   enable_submodules true
   action :sync
   notifies :run, 'execute[rake dotfiles task]'
@@ -51,23 +53,23 @@ end
 execute 'rake dotfiles task' do
   command 'rake dotfiles'
   cwd File.join(colin_dir,'dotfiles')
-  user 'colin'
-  group 'colin'
-  environment "DOTFILES_HOME_DIR" => node['etc']['passwd']['colin']['dir']
+  user @admin_name
+  group @admin_name
+  environment "DOTFILES_HOME_DIR" => node['etc']['passwd'][@admin_name]['dir']
   action :nothing
 end
 
 # Ensure my SSH keys are up-to-date, by using the list from Github
 directory File.join(colin_dir,'.ssh') do
-  owner 'colin'
-  group 'colin'
+  owner @admin_name
+  group @admin_name
   mode '0700'
   recursive true
 end
 
 remote_file 'evaryont github keys' do
-  owner 'colin'
-  group 'colin'
+  owner @admin_name
+  group @admin_name
   source 'https://github.com/evaryont.keys'
   path File.join(colin_dir,'.ssh','authorized_keys')
   mode '0600'

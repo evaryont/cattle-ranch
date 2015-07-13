@@ -23,3 +23,4 @@ elsif node['platform'] == 'arch'
 end
 
 node.default['ranchhand']['httpd'] = nil
+node.default['ranchhand']['admin_name'] = 'colin'

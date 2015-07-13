@@ -38,6 +38,8 @@ DEPENDENCIES
   sysstat
   system
   taskwarrior
+  websites
+    path: cookbooks/websites
 
 GRAPH
   apache2 (3.1.0)
@@ -113,7 +115,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.6.21)
+  ranchhand (0.7.0)
     apache2 (>= 0.0.0)
     apt-periodic (~> 0.2)
     chef-sugar (>= 0.0.0)
@@ -126,6 +128,7 @@ GRAPH
     pam (>= 0.0.0)
     sshd (>= 0.0.0)
     sysctl (>= 0.0.0)
+    websites (>= 0.0.0)
   rbac (1.0.3)
   rsyslog (2.0.0)
   runit (1.6.0)
@@ -149,6 +152,9 @@ GRAPH
     perl (>= 0.0.0)
     python (>= 0.0.0)
     runit (>= 0.0.0)
+  websites (0.1.0)
+    apache2 (~> 3)
+    nginx (~> 2)
   windows (1.37.0)
     chef_handler (>= 0.0.0)
   yum (3.6.0)
