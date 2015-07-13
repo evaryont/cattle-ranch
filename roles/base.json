@@ -36,7 +36,6 @@
     },
     "nginx": {
       "repo_source": "nginx",
-      "version": "1.8.0",
       "status": {
         "port": 80
       },
