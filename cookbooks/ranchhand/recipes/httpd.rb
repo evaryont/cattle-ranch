@@ -18,10 +18,10 @@ if node['ranchhand']['httpd'] == 'nginx'
 
   # delete some default files that interfere with sites-available
   file '/etc/nginx/conf.d/example_ssl.conf' do
-    action :remove
+    action :delete
   end
   file '/etc/nginx/conf.d/default.conf' do
-    action :remove
+    action :delete
   end
 elsif node['ranchhand']['httpd'] == 'apache'
   include_recipe 'apache2::default'
