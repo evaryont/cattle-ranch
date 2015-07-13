@@ -23,6 +23,13 @@ if node['ranchhand']['httpd'] == 'nginx'
   file '/etc/nginx/conf.d/default.conf' do
     action :delete
   end
+
+  # don't make the default site template
+  unwind "template[#{node['nginx']['dir']}/sites-available/default]"
+  # and ensure it's deleted from the system
+  file "#{node['nginx']['dir']}/sites-available/default" do
+    action :delete
+  end
 elsif node['ranchhand']['httpd'] == 'apache'
   include_recipe 'apache2::default'
 else

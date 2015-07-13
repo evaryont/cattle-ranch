@@ -8,9 +8,10 @@ server {
   server_name evaryont.me;
 
   access_log <%= node['nginx']['log_dir'] %>/evaryont.me.log combined;
+  root /home/<%= node['ranchhand']['admin_name'] %>/public;
 
   location / {
-    root   /home/<%= node['ranchhand']['admin_name'] %>/public;
-    index  index.html index.htm;
+    index index.html;
+    autoindex off;
   }
 }
