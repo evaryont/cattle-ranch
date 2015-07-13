@@ -10,7 +10,7 @@ else
   node.override['network']['ipv6']['enable'] = false
 end
 
-if node['platform'] == 'ubuntu'
+if node['platform_family'] == 'debian'
   node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox)
 
 elsif node['platform'] == 'arch'
