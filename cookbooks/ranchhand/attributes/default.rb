@@ -22,3 +22,4 @@ elsif node['platform'] == 'arch'
   node.override['ntp']['packages'] = %w(ntp)
 end
 
+node.default['ranchhand']['httpd'] = nil
