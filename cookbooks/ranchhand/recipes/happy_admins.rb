@@ -73,6 +73,6 @@ remote_file 'evaryont github keys' do
   mode '0600'
 end
 
-if node['ranchand']['yubikey']
+if node['ranchhand']['yubikey']
   include_recipe 'ranchhand::yubico'
 end
