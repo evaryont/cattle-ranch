@@ -3,19 +3,19 @@ package 'libpam-yubico' do
   action :install
 end
 
-directory "#{colin_dir}/.yubico" do
-  owner 'colin'
-  group 'colin'
+directory "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/.yubico" do
+  owner node['ranchhand']['admin_name']
+  group node['ranchhand']['admin_name']
   mode '0700'
   recursive true
 end
 
-file "#{colin_dir}/.yubico/authorized_yubikeys" do
-  owner 'colin'
-  group 'colin'
+file "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/.yubico/authorized_yubikeys" do
+  owner node['ranchhand']['admin_name']
+  group node['ranchhand']['admin_name']
   mode '0644'
   content <<-EOYUBIKEY
-colin:ccccccdtvgin
+#{node['ranchhand']['admin_name']}:ccccccdtvgin
 EOYUBIKEY
 end
 

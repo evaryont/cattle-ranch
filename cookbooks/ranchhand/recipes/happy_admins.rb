@@ -55,7 +55,7 @@ execute 'rake dotfiles task' do
   cwd File.join(colin_dir,'dotfiles')
   user @admin_name
   group @admin_name
-  environment "DOTFILES_HOME_DIR" => node['etc']['passwd'][@admin_name]['dir']
+  environment {"DOTFILES_HOME_DIR" => colin_dir}
   action :nothing
 end
 
