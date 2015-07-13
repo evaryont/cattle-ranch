@@ -25,6 +25,10 @@ DEPENDENCIES
   ntp
   omnibus_updater (~> 1.0.2)
   os-hardening (~> 1.2.0)
+  pacman
+    git: https://github.com/logankoester/pacman
+    revision: fd7be0f818f2b79dbd812d93fcafb2ed78a88e00
+    ref: fd7be0f
   pam (~> 1.0.1)
   php-fpm
   ranchhand
@@ -89,6 +93,7 @@ GRAPH
     sysctl (>= 0.3.0)
     yum (>= 0.0.0)
   packagecloud (0.0.18)
+  pacman (2.0.0)
   pam (1.0.1)
   perl (1.2.4)
   php-fpm (0.7.4)
@@ -98,7 +103,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.6.13)
+  ranchhand (0.6.14)
     chef-sugar (>= 0.0.0)
     iptables-ng (>= 0.0.0)
     locale (>= 0.0.0)

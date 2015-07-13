@@ -26,6 +26,7 @@ cookbook 'os-hardening', '~> 1.2.0'
 cookbook 'ntp'
 cookbook 'mosh'
 cookbook 'pam', '~> 1.0.1'
+cookbook 'pacman', git: 'https://github.com/logankoester/pacman', ref: 'fd7be0f818f2b79dbd812d93fcafb2ed78a88e00'
 
 Dir['cookbooks/*'].each do |cookbook_dir|
   cookbook File.basename(cookbook_dir), path: cookbook_dir
