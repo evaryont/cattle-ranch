@@ -19,5 +19,6 @@ elsif node['platform'] == 'arch'
   node.override['sysctl']['conf_dir'] = '/etc/sysctl.d'
   node.override['sysctl']['conf_file'] = File.join(node['sysctl']['conf_dir'], '/99-chef-attributes.conf')
   node.override['sshd']['package'] = 'openssh'
+  node.override['ntp']['packages'] = %w(ntp)
 end
 
