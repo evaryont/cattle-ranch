@@ -27,12 +27,12 @@ Description=Sync pacman databases
 
 [Service]
 Type=oneshot
-ExecStart=pacman -Sy
+ExecStart=/usr/bin/pacman -Sy
 EOSERVICE
   end
 
   execute 'enable and start pacman-sync' do
-    command 'systemctl start pkgstats.timer'
+    command 'systemctl enable pacman-sync.timer && systemctl start pacman-sync.timer'
     action :nothing
   end
 end
