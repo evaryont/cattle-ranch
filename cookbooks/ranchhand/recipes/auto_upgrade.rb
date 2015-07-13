@@ -1,7 +1,7 @@
 # Depending on the distribution, install some flavor of automatic upgrades.
 
 if debian? || ubuntu?
-  include_recipe "recipe[apt-periodic::default]"
+  include_recipe "apt-periodic::default"
 elsif arch?
   directory "/etc/systemd/system"
 
