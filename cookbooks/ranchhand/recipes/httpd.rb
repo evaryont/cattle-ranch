@@ -22,4 +22,4 @@ else
   Chef::Log.fatal! "Unknown type of http server. What does '#{node['ranchhand']['httpd']}' mean?!?"
 end
 
-include_recipe 'websites::httpd'
+include_recipe 'websites::default'
