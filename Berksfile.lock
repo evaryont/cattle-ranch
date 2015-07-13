@@ -152,7 +152,7 @@ GRAPH
     perl (>= 0.0.0)
     python (>= 0.0.0)
     runit (>= 0.0.0)
-  websites (0.1.1)
+  websites (0.1.2)
     apache2 (~> 3.1)
     nginx (~> 2.7)
   windows (1.37.0)

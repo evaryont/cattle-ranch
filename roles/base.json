@@ -40,6 +40,7 @@
         "port": 80
       },
       "default_site_enabled": false
+      "log_dir_perm": "0755"
     },
     "sshd": {
       "sshd_config": {

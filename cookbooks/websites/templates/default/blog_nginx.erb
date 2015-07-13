@@ -5,7 +5,7 @@
 # https://github.com/evaryont/evaryont.github.io
 server {
   server_name evaryont.me;
-  access_log logs/evaryont.me.log main;
+  access_log <%= node['nginx']['log_dir'] %>/evaryont.me.log combined;
 
   root /home/<%= node['ranchhand']['admin_name'] %>/public;
 }
