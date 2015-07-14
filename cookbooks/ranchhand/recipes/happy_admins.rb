@@ -48,6 +48,7 @@ git File.join(colin_dir,'dotfiles') do
   enable_submodules true
   action :sync
   notifies :run, 'execute[rake dotfiles task]'
+  only_if { node['ranchhand']['dotfiles_sync'] }
 end
 
 cmd_env_hash = {"DOTFILES_HOME_DIR" => colin_dir}

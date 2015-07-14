@@ -24,3 +24,4 @@ end
 
 node.default['ranchhand']['httpd'] = nil
 node.default['ranchhand']['admin_name'] = 'colin'
+node.default['ranchhand']['dotfiles_sync'] = true
