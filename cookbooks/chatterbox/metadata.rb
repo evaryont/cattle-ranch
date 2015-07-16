@@ -1,0 +1,7 @@
+name             'chatterbox'
+maintainer       'Colin Shea'
+maintainer_email 'colin@shea.at'
+license          'all_rights'
+description      'Weechat setup'
+long_description 'Set up weechat for Arch linux as a bouncer/idling'
+version          '0.1.0'
