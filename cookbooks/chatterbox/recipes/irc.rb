@@ -12,7 +12,7 @@ end
 package 'tmux'
 
 file '/etc/systemd/system/weechat@.service' do
-  contents <<EOSERVICE
+  content <<EOSERVICE
 [Unit]
 Description=Weechat IRC Client (in tmux) for %I
 Requires=network.target local-fs.target
