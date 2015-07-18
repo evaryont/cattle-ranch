@@ -1,5 +1,16 @@
 node.default['ranchhand']['is_gigabit'] = true
-node.default['ranchhand']['mosh'] = false
+
+# Protect against wrapping sequence numbers at gigabit speeds
+node.override['sysctl']['params']['net']['ipv4']['tcp_timestamps'] =
+  (node['ranchhand']['is_gigabit'] ? 1 : 0)
+# Preventing link TOCTOU vulnerabilities
+node.override['sysctl']['params']['fs']['protected_hardlinks'] = 1
+node.override['sysctl']['params']['fs']['protected_symlinks'] = 1
+# limit dmesg to root only
+node.override['sysctl']['params']['kernel']['dmesg_restrict'] = 1
+# hide kernel symbol addresses in /proc/kallsyms from regular users
+# without CAP_SYSLOG
+node.override['sysctl']['params']['kernel']['kptr_restrict'] = 1
 
 # If the node has a 'real' IPv6 address, not just loopback
 if node['ip6addresss'] && node['ip6addresss'] != '::1'
@@ -22,6 +33,7 @@ elsif node['platform'] == 'arch'
   node.override['ntp']['packages'] = %w(ntp)
 end
 
+node.default['ranchhand']['mosh'] = false
 node.default['ranchhand']['httpd'] = nil
 node.default['ranchhand']['admin_name'] = 'colin'
 node.default['ranchhand']['dotfiles_sync'] = true
