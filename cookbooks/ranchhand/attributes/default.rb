@@ -11,7 +11,7 @@ else
 end
 
 if node['platform_family'] == 'debian'
-  node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox)
+  node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox aptitude)
 
 elsif node['platform'] == 'arch'
   node.default['ranchhand']['extra_packages'] = %w(vim vim-runtime the_silver_searcher)
