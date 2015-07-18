@@ -116,7 +116,6 @@
     "recipe[ranchhand::happy_admins]",
     "recipe[ranchhand::sshd]",
     "recipe[ranchhand::time]",
-    "recipe[ranchhand::httpd]",
-    "recipe[fishnet::tinc]"
+    "recipe[ranchhand::httpd]"
   ]
 }
