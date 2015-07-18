@@ -13,6 +13,8 @@ DEPENDENCIES
   chef-sugar
   chef-vault
   chef_handler
+  fishnet
+    path: cookbooks/fishnet
   git
   hipchat
   locale
@@ -69,6 +71,7 @@ GRAPH
     ohai (>= 0.0.0)
   encrypted_volume (0.1.0)
     chef-vault (>= 0.0.0)
+  fishnet (0.1.0)
   git (4.2.2)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
@@ -118,7 +121,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.8.0)
+  ranchhand (0.8.3)
     apache2 (>= 0.0.0)
     apt-periodic (~> 0.2)
     chef-sugar (>= 0.0.0)

@@ -113,10 +113,10 @@
     "recipe[chef-vault::default]",
     "recipe[ranchhand::hardening]",
     "recipe[ranchhand::firewall]",
-    "recipe[ranchhand::sysctl]",
     "recipe[ranchhand::happy_admins]",
     "recipe[ranchhand::sshd]",
-    "recipe[ntp::default]",
-    "recipe[ranchhand::httpd]"
+    "recipe[ranchhand::time]",
+    "recipe[ranchhand::httpd]",
+    "recipe[fishnet::tinc]"
   ]
 }
