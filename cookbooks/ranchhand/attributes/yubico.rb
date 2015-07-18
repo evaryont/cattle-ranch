@@ -1,4 +1,4 @@
-if node['platform'] == 'ubuntu'
+if node['platform_family'] == 'debian'
   node.default['ranchand']['yubikey'] = true
 
   node.default['ranchhand']['pam_sudo_yubikey'] = {

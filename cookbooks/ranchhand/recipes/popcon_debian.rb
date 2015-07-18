@@ -1,4 +1,4 @@
-# Popularity contest for Ubuntu configuration
+# Popularity contest for Debian configuration
 
 package 'popularity-contest' do
   action :install
@@ -6,11 +6,7 @@ end
 
 require 'digest/md5'
 
-if debian?
-  @submission_url = "http://popcon.debian.org/cgi-bin/popcon.cgi"
-elsif ubuntu?
-  @submission_url = "https://popcon.ubuntu.com/popcon-submit.cgi"
-end
+@submission_url = "http://popcon.debian.org/cgi-bin/popcon.cgi"
 
 file "/etc/popularity-contest.conf" do
   content <<-EOPOPCON
