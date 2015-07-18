@@ -4,7 +4,7 @@
 
 # Generate a unique address based on the SSH RSA key. Based on 3ofcoin's method
 unless node['fishnet']['tinc_hex_address']
-  require 'digest'
+  require 'digest/md5'
   ha_base = node['keys']['ssh']['host_rsa_public']
   loop do
     # Grab the last 2 digits of the digest to get 8 bits of information. This
@@ -27,3 +27,6 @@ unless node['fishnet']['tinc_hex_address']
 
   Chef::Log.info "New Tinc hex address set: #{node['fishnet']['tinc_hex_address']}"
 end
+
+ipv4_addr = "#{node['fishnet']['tinc_ipv4_prefix']}.#{node['fishnet']['tinc_hex_address']}"
+Chef::Log.info "Tinc VPN IP address: #{ipv4_addr}"
