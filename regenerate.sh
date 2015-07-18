@@ -7,7 +7,7 @@ set -euo pipefail
 berks -q
 
 # Then commit everything
-git add -a
+git add --all
 git commit
 
 # Finally, upload it all

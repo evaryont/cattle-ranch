@@ -118,7 +118,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.7.7)
+  ranchhand (0.8.0)
     apache2 (>= 0.0.0)
     apt-periodic (~> 0.2)
     chef-sugar (>= 0.0.0)
