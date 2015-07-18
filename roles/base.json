@@ -81,7 +81,12 @@
         "enable": true
       }
     },
-    "config_disclaimer": "This configuration is set by chef from cattle-ranch. Often nuked from orbit."
+    "config_disclaimer": "This configuration is set by chef from cattle-ranch. Often nuked from orbit.",
+    "tinc": {
+      "ipv6_subnet": "fc00:c0a1:face",
+      "iptables": false,
+      "net": "aether" 
+    }
   },
   "override_attributes": {
     "omnibus_updater": {
