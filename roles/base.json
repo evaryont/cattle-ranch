@@ -59,10 +59,6 @@
         "PubkeyAuthentication": "yes"
       }
     },
-    "system": {
-      "timezone": "Etc/UTC",
-      "domain_name": "evaryont.me"
-    },
     "apt_periodic": {
       "auto_apt_enable": "1",
       "download_upgradeable_interval": "7",
@@ -102,7 +98,7 @@
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
     "recipe[ranchhand::rewind]",
-    "recipe[system::default]",
+    "recipe[ranchhand::system]",
     "recipe[ranchhand::locale]",
     "recipe[apt::default]",
     "recipe[ranchhand::auto_upgrade]",
