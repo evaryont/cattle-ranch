@@ -44,9 +44,7 @@
     },
     "sshd": {
       "sshd_config": {
-        "Port": 22,
         "Protocol": 2,
-        "AllowUsers": "colin",
         "X11Forwarding": "no",
         "AuthorizedKeysFile": ".ssh/authorized_keys",
         "UsePAM": "yes",
