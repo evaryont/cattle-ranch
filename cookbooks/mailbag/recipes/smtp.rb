@@ -17,8 +17,6 @@ pf_main['myorigin'] = mail_server_domain
 pf_main['inet_interfaces'] = "all"
 # Generic smtpd banner goes here, less discoverable info the better
 pf_main['smtpd_banner'] = '$myhostname ESMTP $mail_name'
-# ... TODO: describe
-pf_main['readme_directory'] = 'no'
 
 # -- TLS Configuration
 pf_main['smtpd_use_tls'] = 'yes'
@@ -59,6 +57,7 @@ include_recipe 'postfix::server'
 chef_gem 'chef-rewind'
 require 'chef/rewind'
 
+# Use the master.cf template from my cookbook
 rewind "template[#{node['postfix']['conf_dir']}/master.cf]" do
   source 'my_pf_master.cf.erb'
   cookbook 'mailbag'
