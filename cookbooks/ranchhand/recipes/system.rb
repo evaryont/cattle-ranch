@@ -2,7 +2,7 @@ system_hostname "#{node.name}.evaryont.me" do
   short_hostname node.name
   domain_name node['ranchhand']['domain_name']
   #static_hosts [{ '127.0.0.1' => 'localhost' }]
-  static_hosts []
+  static_hosts {}
 end
 
 system_timezone 'Etc/UTC'
