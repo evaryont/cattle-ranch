@@ -1,5 +1,6 @@
 system_hostname "#{node.name}.evaryont.me" do
   short_hostname node.name
+  domain_name node['ranchhand']['domain_name']
 end
 system_timezone 'Etc/UTC'
 

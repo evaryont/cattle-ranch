@@ -40,3 +40,4 @@ node.default['ranchhand']['dotfiles_sync'] = true
 node.default['ranchhand']['https_only'] = false
 node.default['ranchhand']['ssh_port'] = 22
 node.default['ranchhand']['public_direct_ssh'] = true
+node.default['ranchhand']['domain_name'] = 'evaryont.me'
