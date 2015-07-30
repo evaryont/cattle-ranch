@@ -1,4 +1,6 @@
-system_hostname "#{node.name}.evaryont.me"
+system_hostname "#{node.name}.evaryont.me" do
+  short_hostname node.name
+end
 system_timezone 'Etc/UTC'
 
 if arch?
