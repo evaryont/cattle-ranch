@@ -47,8 +47,8 @@ DEPENDENCIES
   taskwarrior
   tinc
     git: https://github.com/evaryont/chef-cookbook-tinc
-    revision: bae8e2a55d2aa0a319c805f0290144692432293a
-    ref: bae8e2a
+    revision: 76a1c1ded8cdc541a638492ea7e8e55e8809a52f
+    ref: 76a1c1d
   websites
     path: cookbooks/websites
 
@@ -168,7 +168,7 @@ GRAPH
     perl (>= 0.0.0)
     python (>= 0.0.0)
     runit (>= 0.0.0)
-  tinc (0.1.1)
+  tinc (0.1.0)
     sysctl (>= 0.0.0)
   websites (0.1.5)
     apache2 (~> 3.1)
