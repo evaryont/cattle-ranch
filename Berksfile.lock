@@ -47,8 +47,8 @@ DEPENDENCIES
   taskwarrior
   tinc
     git: https://github.com/evaryont/chef-cookbook-tinc
-    revision: 76a1c1ded8cdc541a638492ea7e8e55e8809a52f
-    ref: 76a1c1d
+    revision: eb55dfcb6375f02130f5f7be8243312e1990c483
+    ref: eb55dfc
   websites
     path: cookbooks/websites
 
