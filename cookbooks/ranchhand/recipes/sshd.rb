@@ -118,7 +118,7 @@ node.override['sshd']['sshd_config']['MACs'] = (macs & `ssh -Q mac`.split("\n").
 
 # This is a list of all users that I allow to SSH into the server. They are all
 # part of the 'sshing' group
-allowed_users = (node['etc']['group']['sshing'] ? node['etc']['group']['sshing']['members'] : [])
+allowed_users = (node['etc']['group']['sshing'] ? node['etc']['group']['sshing'].to_hash['members'] : [])
 
 if node['hostname'] == 'vagabond'
   # This looks like the virtual machine I use with vagrant to test the configs.
