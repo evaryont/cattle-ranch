@@ -1,8 +1,11 @@
 system_hostname "#{node.name}.evaryont.me" do
   short_hostname node.name
   domain_name node['ranchhand']['domain_name']
-  #static_hosts [{ '127.0.0.1' => 'localhost' }]
-  static_hosts {}
+  # Dummy values that are still (somewhat) useful
+  static_hosts {
+    '8.8.8.8' => 'dns1.google.com',
+    '8.8.4.4' => 'dns2.google.com',
+  }
 end
 
 system_timezone 'Etc/UTC'

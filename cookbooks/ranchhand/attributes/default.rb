@@ -41,3 +41,10 @@ node.default['ranchhand']['https_only'] = false
 node.default['ranchhand']['ssh_port'] = 22
 node.default['ranchhand']['public_direct_ssh'] = true
 node.default['ranchhand']['domain_name'] = 'evaryont.me'
+
+node.default['ranchhand']['openssl_dev'] = case node['platform_family']
+                                           when 'redhat', 'fedora'
+                                             'openssl-devel'
+                                           when 'debian'
+                                             'libssl-dev'
+                                           end

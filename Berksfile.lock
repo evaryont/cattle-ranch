@@ -41,6 +41,9 @@ DEPENDENCIES
   sudo
   sysstat
   system
+    git: https://github.com/xhost-cookbooks/system
+    revision: 11bb41f10178c8927328affa5730020b2617b53f
+    ref: 11bb41f
   taskwarrior
   tinc
     git: https://github.com/evaryont/chef-cookbook-tinc
@@ -125,10 +128,11 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.8.11)
+  ranchhand (0.8.12)
     apache2 (>= 0.0.0)
     apt-periodic (~> 0.2)
     chef-sugar (>= 0.0.0)
+    chef-vault (>= 0.0.0)
     iptables-ng (>= 0.0.0)
     locale (>= 0.0.0)
     mosh (>= 0.0.0)

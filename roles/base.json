@@ -17,6 +17,9 @@
         "users": [ "colin" ]
       }
     },
+    "build-essential": {
+      "compile_time": true
+    },
     "chef_client": {
       "interval": 1620,
       "splay": 600,
@@ -94,6 +97,7 @@
     "recipe[ranchhand::chef_omnibus]",
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
+    "recipe[build-essential::default]",
     "recipe[ranchhand::rewind]",
     "recipe[ranchhand::system]",
     "recipe[ranchhand::locale]",
@@ -108,7 +112,7 @@
     "recipe[chef-client::config]",
     "recipe[chef-client::service]",
     "recipe[chef-client::delete_validation]",
-    "recipe[chef-vault::default]",
+    "recipe[ranchhand::chef_vault]",
     "recipe[ranchhand::hardening]",
     "recipe[ranchhand::firewall]",
     "recipe[ranchhand::happy_admins]",
