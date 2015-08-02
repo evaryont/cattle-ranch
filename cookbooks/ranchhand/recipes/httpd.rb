@@ -4,7 +4,7 @@ return unless node['ranchhand']['httpd']
 
 # Allow HTTP & HTTPS through the firewall. HTTP is blocked if
 # node[ranchhand][https_only] is set to true
-http_firewall_jump = (node['ranchhand']['https_only'] ? 'ACCEPT' : 'DROP')
+http_firewall_jump = (node['ranchhand']['https_only'] ? 'DROP' : 'ACCEPT')
 iptables_ng_rule '40-http' do
   chain 'INPUT'
   rule "--protocol tcp --dport 80 --match state --state NEW --jump #{http_firewall_jump}"
