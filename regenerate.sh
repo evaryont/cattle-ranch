@@ -8,7 +8,7 @@ berks -q
 
 # Then commit everything
 git add --all
-git commit
+git commit --quiet
 
 # Finally, upload it all
 ./upload_all.sh
