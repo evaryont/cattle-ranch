@@ -11,6 +11,8 @@ node.override['sysctl']['params']['kernel']['dmesg_restrict'] = 1
 # hide kernel symbol addresses in /proc/kallsyms from regular users
 # without CAP_SYSLOG
 node.override['sysctl']['params']['kernel']['kptr_restrict'] = 1
+# enable IPv6 forwarding for tinc
+node.override['net']['ipv6']['conf']['all']['forwarding'] = 1 # TODO: if "recipe[tinc::default]"
 
 # If the node has a 'real' IPv6 address, not just loopback
 if node['ip6addresss'] && node['ip6addresss'] != '::1'
