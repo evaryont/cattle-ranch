@@ -17,7 +17,10 @@ end
 node.default['sshd']['sshd_config']['Port'] = node['ranchhand']['ssh_port']
 ipv6_addr = (node['ranchhand']['public_direct_ssh'] ? '::' : '::1')
 ipv4_addr = (node['ranchhand']['public_direct_ssh'] ? '0.0.0.0' : '127.0.0.1')
-node.default['sshd']['sshd_config']['ListenAddress'] = [ipv6_addr, ipv4_addr]
+# This is set to a hash so that it's forced to a later section of the config
+# file, to work around https://github.com/chr4-cookbooks/sshd/issues/8. Use
+# empty strings as the values to keep the generated line syntactically valid
+node.default['sshd']['sshd_config']['ListenAddress'] = {ipv6_addr => '', ipv4_addr => ''}
 
 # Grab the ssh version (like 6.6.1p1, or 5.3p3). Commonly seen SSH versions:
 #  - 6.9 on Arch
