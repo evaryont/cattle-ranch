@@ -2,6 +2,7 @@
 #
 # Specifically, the pre-release version
 
+=begin
 # Generate a unique address based on the SSH RSA key. Based on 3ofcoin's method
 unless node['fishnet']['tinc_hex_address']
   require 'digest/md5'
@@ -30,3 +31,7 @@ end
 
 ipv4_addr = "#{node['fishnet']['tinc_ipv4_prefix']}.#{node['fishnet']['tinc_hex_address']}"
 Chef::Log.info "Tinc VPN IP address: #{ipv4_addr}"
+=end
+
+include_recipe "tinc::default"
+
