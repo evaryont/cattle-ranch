@@ -33,5 +33,17 @@ ipv4_addr = "#{node['fishnet']['tinc_ipv4_prefix']}.#{node['fishnet']['tinc_hex_
 Chef::Log.info "Tinc VPN IP address: #{ipv4_addr}"
 =end
 
+node.override["tinc"]["ipv6_subnet"] = "fc00:c0a1:face"
+node.override["tinc"]["iptables"] = false
+node.override["tinc"]["net"] = "aether"
 include_recipe "tinc::default"
 
+# Make a hosts entry for each host in the tinc VPN
+search(:node, 'tinc_host_file:[* TO *]').each do |peer_node|
+
+  hostsfile_entry peer_node['tinc']['ipv6_address'] do
+    hostname  "#{peer_node['tinc']['name']}.vpn"
+    unique    true
+  end
+
+end
