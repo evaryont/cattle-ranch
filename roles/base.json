@@ -119,6 +119,6 @@
     "recipe[ranchhand::sshd]",
     "recipe[ranchhand::time]",
     "recipe[ranchhand::httpd]",
-    "recipe[tinc::default]"
+    "recipe[fishnet::tinc]"
   ]
 }
