@@ -1,7 +1,11 @@
 Ohai.plugin(:OpenvzPublic) do
   provides 'ipaddress'
 
-  require_plugin 'network'
+  depends 'ipaddress'
+  depends 'network'
+  depends 'network/interfaces'
+  depends 'virtualization/system'
+  depends 'etc/passwd'
 
   collect_data do
     addresses = network['interfaces'].map { |name, i| i['addresses'].keys }.flatten
@@ -15,3 +19,8 @@ Ohai.plugin(:OpenvzPublic) do
   end
 
 end
+
+
+  provides 'ipaddress'
+
+
