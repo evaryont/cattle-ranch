@@ -98,6 +98,7 @@
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
     "recipe[build-essential::default]",
+    "recipe[fishnet::openvz_public]",
     "recipe[ranchhand::rewind]",
     "recipe[ranchhand::system]",
     "recipe[ranchhand::locale]",
