@@ -1,5 +1,5 @@
 ohai 'reload_openvz_public' do
-  plugin 'OpenvzPublic'
+  plugin 'openvz_public'
   action :nothing
 end
 
