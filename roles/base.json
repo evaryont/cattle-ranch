@@ -98,7 +98,7 @@
     "recipe[chef_handler::default]",
     "recipe[chef_handler::json_file]",
     "recipe[build-essential::default]",
-    "recipe[fishnet::ohai_openvz]",
+    "recipe[fishnet::ohai_ipaddress_hint]",
     "recipe[ranchhand::rewind]",
     "recipe[ranchhand::system]",
     "recipe[ranchhand::locale]",

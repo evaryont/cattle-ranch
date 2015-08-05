@@ -46,15 +46,15 @@ Ohai.plugin(:IpaddressHint) do
     end
 
     # But also let the syadmin override the detected IPs
-    if ipaddress['private_ipv4']
-      ipv4_address = ipaddress['private_ipv4']
+    if ipaddress['public_ipv4']
+      ipv4_address = ipaddress['public_ipv4']
     end
-    if ipaddress['private_ipv6']
-      ipv6_address = ipaddress['private_ipv6']
+    if ipaddress['public_ipv6']
+      ipv6_address = ipaddress['public_ipv6']
     end
 
     if !ipv4_address && !ipv6_address
-      Ohai::Log.info('Neither private_ipv4 nor private_ipv6 are set, skipping ohai ipaddress hint.')
+      Ohai::Log.info('Neither public_ipv4 nor public_ipv6 are set, skipping ohai ipaddress hint.')
     else
       Ohai::Log.info("Ohai hint: override ipaddress to IPv4 #{ipv4_address} & IPv6 #{ipv6_address}.")
       ipaddress  ipv4_address if ipv4_address

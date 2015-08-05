@@ -1,5 +1,5 @@
 ohai 'reload_ipaddress_hint' do
-  plugin 'ipaddress_hint'
+  plugin ['ipaddress', 'ip6address']
   action :nothing
 end
 
