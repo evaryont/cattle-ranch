@@ -4,7 +4,7 @@ ohai 'reload_openvz_public' do
 end
 
 cookbook_file "#{node['ohai']['plugin_path']}/openvz_public.rb" do
-  source 'plugins/openvz_public.rb.erb'
+  source 'plugins/openvz_public.rb'
   owner  'root'
   group  node['root_group']
   mode   '0644'
