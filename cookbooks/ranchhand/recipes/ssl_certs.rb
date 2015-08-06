@@ -10,7 +10,7 @@ end
 
 include_recipe 'managed_directory::default'
 
-manage_directory node.default['ranchhand']['ssl_cert_dir'] do
+managed_directory node.default['ranchhand']['ssl_cert_dir'] do
   clean_directories true
   clean_links true
   clean_files true
