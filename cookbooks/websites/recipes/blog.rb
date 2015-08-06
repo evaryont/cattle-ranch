@@ -32,5 +32,5 @@ end
 
 # turn the site on
 nginx_site 'blog' do
-  enble true
+  enable true
 end
