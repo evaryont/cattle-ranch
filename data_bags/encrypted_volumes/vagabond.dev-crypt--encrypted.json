@@ -1,0 +1,9 @@
+{
+  "id": "vagabond.dev-crypt--encrypted",
+  "passphrase": {
+    "encrypted_data": "lJfYSRj+X4H2beNuOU9iJbRMeV85aa6UeLd65HEVcVsAzubyWL2ZZOq2V3jb\nZ/9m+FURzNSE2PMN1JQe38EYvz+h02aAFk0tu1ZBliuLDdiCc5NXj1sMRbAA\nej5A5KVl8A/jncxLKi0kuuGoJ95IemKo3HqNUEjeABxVdTPRLhDNfKmWBtYv\naXXGQpLGPBgaKRu+IqkwRf52zGSW6tX056ow9RNIKNrc3HQn84XgIlggHnWV\nV4tJ1kLgW7kY5aC4\n",
+    "iv": "diHi5aTKioNkLsE75eYz3g==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

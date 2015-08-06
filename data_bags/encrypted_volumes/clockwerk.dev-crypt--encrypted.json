@@ -1,0 +1,9 @@
+{
+  "id": "clockwerk.dev-crypt--encrypted",
+  "passphrase": {
+    "encrypted_data": "rBEzmTlRk7Yd/NV4plNKDxx+dlnx/syTfZbC4IG/+wK13jxeYLROInmv5syc\n6vYfJe97G/baR202C+np92Zk9kOyThq3l5hsJguxM1M/52IyzWDSr5jvpoFG\nI4dxDqnW2dX1nj2q/MA2i/jv5+jDnxjsWsuTbDomPfzS0yiKfcYGL1+A4uPL\nJQttEsDirQI/U9e2/t9+3uq4SYY6FUouAvqwsZXREBsurvDxw37Kx9J4/9ZL\nv8LqGLCIYzSbx/JH\n",
+    "iv": "cQbNOjBiL1+cvXOKOfe8fg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

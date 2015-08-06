@@ -1,0 +1,9 @@
+{
+  "id": "reader.dev-crypt--encrypted",
+  "passphrase": {
+    "encrypted_data": "C8r4hn5R7yWzFq2ejrJWa82PWu0eSIrBHEcrt1Qi/rcridmMx1ubYhjYv1if\nqA0Rj9GrCXtHcpt7jUOR1iaRijaWwm0C2/VAGwnQb/C/j+9ERprjjTeWL/0j\ngCaa2fbiNRMT2HH53JKWzNzawAaOGhebKnvf2FUcvjXhEpAXoxw4NY6mcNNe\n+iLtdP++Dx0DaryqUgU4Na/nUrOc2EYoF3fu0m9s5wt/LDi6EZ/Hw7GCXM83\nRp3ZMLZMzZAvWepH\n",
+    "iv": "zNPbMShG2z2DQzvsVxvY2w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
