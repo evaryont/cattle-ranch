@@ -18,6 +18,8 @@ evsme_cert = certificate_manage 'evaryont.me' do
   owner node['nginx']['user']
   group node['nginx']['user']
   nginx_cert true
+  data_bag 'ssl'
+  data_bag_type 'encrypted'
 end
 
 # fill in configuration for nginx to find it
