@@ -1,7 +1,7 @@
 # set up the directory for chef-managed SSL keys, root limited. However the
 # public keys are stored within, so make sure to save off (to a variable) the
 # certificate resource!
-drectory node.default['ranchhand']['ssl_cert_dir'] do
+dIrectory node.default['ranchhand']['ssl_cert_dir'] do
   action :create
   owner 'root'
   group 'root'
