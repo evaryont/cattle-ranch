@@ -14,6 +14,8 @@ iptables_ng_rule '40-https' do
   rule '--protocol tcp --dport 443 --match state --state NEW --jump ACCEPT'
 end
 
+include_recipe 'ranchhand::ssl_certs'
+
 # Install the chosen web server. It's expected that it's only one or the other.
 if node['ranchhand']['httpd'] == 'nginx'
   include_recipe 'nginx::default'

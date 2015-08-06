@@ -50,3 +50,5 @@ node.default['ranchhand']['openssl_dev'] = case node['platform_family']
                                            when 'debian'
                                              'libssl-dev'
                                            end
+
+node.default['ranchhand']['ssl_cert_dir'] = '/etc/ssl/chef'

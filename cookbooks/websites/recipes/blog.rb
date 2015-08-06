@@ -6,11 +6,18 @@ directory node['websites']['blog_dir'] do
 end
 
 # make a symlink inside my home dir for easy access (I'm likely to forget where
-# in the FS I put the dir)
+# in the filesystem I put the dir)
 link "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/website" do
   owner node['ranchhand']['admin_name']
   group node['ranchhand']['admin_name']
   to node['websites']['blog_dir']
+end
+
+evsme_cert = certificate_manage 'evaryont.me' do
+  cert_path node['ranchhand']['ssl_cert_dir']
+  owner node['nginx']['user']
+  group node['nginx']['user']
+  nginx_cert true
 end
 
 # fill in configuration for nginx to find it
@@ -18,6 +25,7 @@ template '/etc/nginx/sites-available/blog' do
   source 'blog_nginx.erb'
   owner  node['nginx']['user']
   group  node['nginx']['group']
+  variables({'cert' => evsme_cert})
 end
 
 # turn the site on
