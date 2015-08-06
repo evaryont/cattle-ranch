@@ -8,7 +8,7 @@ dIrectory node.default['ranchhand']['ssl_cert_dir'] do
   mode '0755'
 end
 
-include_recipe 'manage_directory::default'
+include_recipe 'managed_directory::default'
 
 manage_directory node.default['ranchhand']['ssl_cert_dir'] do
   clean_directories true
