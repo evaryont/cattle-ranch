@@ -120,6 +120,7 @@
     "recipe[ranchhand::sshd]",
     "recipe[ranchhand::time]",
     "recipe[ranchhand::httpd]",
-    "recipe[fishnet::tinc]"
+    "recipe[fishnet::tinc]",
+    "recipe[fishnet::log_ipaddress]"
   ]
 }
