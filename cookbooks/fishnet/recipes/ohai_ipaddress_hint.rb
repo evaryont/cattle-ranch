@@ -1,20 +1,4 @@
-ohai 'reload_ipaddress_hint' do
-  plugin 'ipaddress'
-  action :nothing
-end
-ohai 'reload_ip6address_hint' do
-  plugin 'ip6address'
-  action :nothing
-end
-
-cookbook_file "#{node['ohai']['plugin_path']}/ipaddress_hint.rb" do
-  source 'plugins/ipaddress_hint.rb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
-  notifies :reload, 'ohai[reload_ipaddress_hint]', :immediately
-  notifies :reload, 'ohai[reload_ip6address_hint]', :immediately
-end
+node.override['ohai']['plugins']['fishnet'] = 'plugins'
 
 # This could be simplified, but I wanted to make sure that there are no nil
 # values in the generated JSON
