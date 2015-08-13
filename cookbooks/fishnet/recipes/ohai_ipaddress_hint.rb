@@ -7,10 +7,9 @@ ipaddress_data['primary_nic'] = node['fishnet']['primary_nic'] if node['fishnet'
 ipaddress_data['public_ipv4'] = node['fishnet']['public_ipv4'] if node['fishnet']['public_ipv4']
 ipaddress_data['public_ipv6'] = node['fishnet']['public_ipv6'] if node['fishnet']['public_ipv6']
 
+include_recipe 'ohai::default'
+
 ohai_hint 'ipaddress' do
   content ipaddress_data
-  notifies :reload, 'ohai[reload_ipaddress_hint]', :immediately
-  notifies :reload, 'ohai[reload_ip6address_hint]', :immediately
+  notifies :reload, 'ohai[custom_plugins]', :immediately
 end
-
-include_recipe 'ohai::default'
