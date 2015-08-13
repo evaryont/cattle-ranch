@@ -27,7 +27,7 @@ cookbook 'ntp'
 cookbook 'mosh'
 cookbook 'pam', '~> 1.0.1'
 cookbook 'pacman', git: 'https://github.com/logankoester/pacman', ref: 'fd7be0f818f2b79dbd812d93fcafb2ed78a88e00'
-cookbook 'tinc', git: 'https://github.com/evaryont/chef-cookbook-tinc', ref: 'eb55dfcb6375f02130f5f7be8243312e1990c483'
+cookbook 'tinc', git: 'https://github.com/evaryont/chef-cookbook-tinc', ref: '520608d77fafaf9cafe969ce85f8f0939a64212c'
 
 Dir['cookbooks/*'].each do |cookbook_dir|
   cookbook File.basename(cookbook_dir), path: cookbook_dir
