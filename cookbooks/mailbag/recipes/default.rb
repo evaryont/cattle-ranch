@@ -7,7 +7,7 @@ encrypted_blockdevice 'datacrypt' do
   file '/var/mailbag.fs'
 end
 filesystem 'datacrypt' do
-  size 7168
+  size '7168'
   fstype 'ext4' 
   mount '/opt/mailbag' # where to mount the encrypted filesystem onto the host
   file '/var/mailbag.fs' # location of where the encrypted filesystem image will go
