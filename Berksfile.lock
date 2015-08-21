@@ -104,7 +104,7 @@ GRAPH
   locale (1.0.2)
   logrotate (1.9.2)
   lvm (1.3.7)
-  mailbag (0.1.12)
+  mailbag (0.1.13)
     dovecot (>= 0.0.0)
     encrypted_blockdevice (>= 0.0.0)
     encrypted_volume (>= 0.0.0)
