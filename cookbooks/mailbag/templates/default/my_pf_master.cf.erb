@@ -30,19 +30,14 @@ lmtp      unix  -       -       n       -       -       lmtp
 anvil     unix  -       -       n       -       1       anvil
 scache	  unix	-	-	n	-	1	scache
 
-# This is the stuff, stuff that you Mr Admin might find interesting...
+# This is the stuff, stuff that you might find interesting...
 # --------------------------------------------------------------------
 
-# world-wide SMTP receiver
-smtp      inet  n       -       n       -       -       smtpd
-
-# world-wide SMTP reciever, with encryption
-smtps     inet  n       -       n       -       -       smtpd
-  -o syslog_name=postfix/smtps
-  -o smtpd_tls_wrappermode=yes
-  -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-  -o milter_macro_daemon_name=ORIGINATING
+# world-wide SMTP receiver, forwarding everything to postscreen(8)
+smtpd     pass  -       -       n       -       -       smtpd
+smtp      inet  n       -       n       -       1       postscreen
+tlsproxy  unix  -       -       n       -       0       tlsproxy
+dnsblog   unix  -       -       n       -       0       dnsblog
 
 <% if @settings['submission'] -%>
 # clients submits emails via this
@@ -55,10 +50,10 @@ submission inet n       -       n       -       -       smtpd
   -o milter_macro_daemon_name=ORIGINATING
 <% end -%>
 
-# pipe incoming messages to dspam anti-spam
-dspam     unix  -       n       n       -       10      pipe
-  flags=Ru user=dspam argv=/usr/bin/dspam --deliver=innocent,spam --user $recipient -i -f $sender -- $recipient
-
-# pipe incoming messages to be delivered via dovecot, which will use pidgeonhole
-dovecot   unix  -       n       n       -       -       pipe
-  flags=DRhu user=mail:mail argv=/usr/lib/dovecot/deliver -f ${sender} -d ${recipient}
+## pipe incoming messages to dspam anti-spam
+#dspam     unix  -       n       n       -       10      pipe
+#  flags=Ru user=dspam argv=/usr/bin/dspam --deliver=innocent,spam --user $recipient -i -f $sender -- $recipient
+#
+## pipe incoming messages to be delivered via dovecot, which will use pidgeonhole
+#dovecot   unix  -       n       n       -       -       pipe
+#  flags=DRhu user=mail:mail argv=/usr/lib/dovecot/deliver -f ${sender} -d ${recipient}

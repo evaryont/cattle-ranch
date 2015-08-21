@@ -95,7 +95,7 @@ GRAPH
   janitor (2.0.1)
   locale (1.0.2)
   logrotate (1.9.2)
-  mailbag (0.1.8)
+  mailbag (0.1.9)
     dovecot (>= 0.0.0)
     encrypted_volume (>= 0.0.0)
     postfix (>= 0.0.0)
