@@ -13,6 +13,11 @@ DEPENDENCIES
   chef-sugar
   chef-vault
   chef_handler
+  encrypted_blockdevice
+    git: https://github.com/atrull/encrypted_blockdevice_cookbook.git
+    revision: 169f3ba1127b89f53bc2ba8dfccae46f4ed60861
+    ref: 169f3ba
+    branch: develop
   fishnet
     path: cookbooks/fishnet
   git
@@ -78,8 +83,11 @@ GRAPH
   dmg (2.2.2)
   dovecot (2.2.2)
     ohai (>= 0.0.0)
+  encrypted_blockdevice (0.0.2)
   encrypted_volume (0.1.0)
     chef-vault (>= 0.0.0)
+  filesystem (0.10.1)
+    lvm (~> 1.1)
   fishnet (0.3.5)
     ohai (>= 0.0.0)
     tinc (>= 0.0.0)
@@ -95,9 +103,13 @@ GRAPH
   janitor (2.0.1)
   locale (1.0.2)
   logrotate (1.9.2)
-  mailbag (0.1.9)
+  lvm (1.3.7)
+  mailbag (0.1.10)
     dovecot (>= 0.0.0)
+    encrypted_blockdevice (>= 0.0.0)
     encrypted_volume (>= 0.0.0)
+    filesystem (>= 0.0.0)
+    lvm (>= 0.0.0)
     postfix (>= 0.0.0)
   managed_directory (0.2.1)
   mosh (0.4.0)

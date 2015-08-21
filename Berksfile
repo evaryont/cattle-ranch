@@ -28,6 +28,7 @@ cookbook 'mosh'
 cookbook 'pam', '~> 1.0.1'
 cookbook 'pacman', git: 'https://github.com/logankoester/pacman', ref: 'fd7be0f818f2b79dbd812d93fcafb2ed78a88e00'
 cookbook 'tinc', git: 'https://github.com/evaryont/chef-cookbook-tinc', ref: '520608d77fafaf9cafe969ce85f8f0939a64212c'
+cookbook 'encrypted_blockdevice', git: 'https://github.com/atrull/encrypted_blockdevice_cookbook.git', ref: '169f3ba1127b89f53bc2ba8dfccae46f4ed60861', branch: 'develop'
 
 Dir['cookbooks/*'].each do |cookbook_dir|
   cookbook File.basename(cookbook_dir), path: cookbook_dir
