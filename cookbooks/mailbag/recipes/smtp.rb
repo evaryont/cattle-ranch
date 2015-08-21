@@ -91,6 +91,10 @@ pf_main['postscreen_pipelining_enable'] = 'yes'
 
 include_recipe 'postfix::server'
 
+%w(doc pcre cdb).each do |extra_postfix_pkg|
+  package "postifx-#{extra_postfix_pkg}"
+end
+
 chef_gem 'chef-rewind'
 require 'chef/rewind'
 
