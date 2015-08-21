@@ -23,6 +23,7 @@ else
   node.override['network']['ipv6']['enable'] = false
 end
 
+node.default['ranchhand']['additional_packages'] = []
 if node['platform_family'] == 'debian'
   node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox aptitude)
 
