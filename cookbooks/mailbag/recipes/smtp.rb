@@ -66,7 +66,7 @@ postscreen_dnsbl_reply_map = "#{node['postfix']['conf_dir']}/postscreen_dnsbl_re
 pf_main['postscreen_access_list'] = ['permit_mynetworks',
                                      "cidr:#{postscreen_access_cidr}"] 
 pf_main['postscreen_blacklist_action'] = 'drop'
-pf_main['ostscreen_dnsbl_action'] = 'enforce'
+pf_main['postscreen_dnsbl_action'] = 'enforce'
 pf_main['postscreen_dnsbl_reply_map'] = "pcre:#{postscreen_dnsbl_reply_map}"
 pf_main['postscreen_dnsbl_sites'] = ['zen.spamhaus.org*3',
                                      'b.barracudacentral.org*2',
