@@ -1,0 +1,9 @@
+{
+  "id": "oregano-crypt--encrypted",
+  "passphrase": {
+    "encrypted_data": "upZz07/01Q5qtS1xsSCloy04YBkgCK7fdzY+KDr7lq/JJOGR+TJ3wIlIK3xj\nkRMrJQ6N5lBILzynTPA9/qlkuzpkr/XmsxFqjukyVJzxDgKD8eTc4pP9ZnD6\nCV2HGMY08zIcI7+vzosmmnW0n06aL4st64Uq0jVs7sF8bDwvDGeJ10v+zX50\nr26LsbDBiKwgQQazE2CV+ULY3OYQwcbQMbYh6ACCR17NTyDPUWH94mdGZvYT\n1aTeDiLmWvUXxAMe\n",
+    "iv": "zsL7HcKMam1sxmXG9ozltw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
