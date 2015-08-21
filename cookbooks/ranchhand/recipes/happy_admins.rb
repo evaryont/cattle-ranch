@@ -1,7 +1,7 @@
 # Various packages that I like installed
 package 'htop'
 package 'zsh'
-(node['ranchhand']['extra_packages'] & node['ranchhand']['additional_packages']).each do |extra_pkg_name|
+(node['ranchhand']['extra_packages'] | node['ranchhand']['additional_packages']).each do |extra_pkg_name|
   package extra_pkg_name
 end
 
