@@ -89,6 +89,16 @@ pf_main['postscreen_bare_newline_enable'] = 'yes'
 pf_main['postscreen_non_smtp_command_enable'] = 'yes'
 pf_main['postscreen_pipelining_enable'] = 'yes'
 
+pf_main['milter_protocol'] = 2
+pf_main['milter_default_action'] = 'accept'
+pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+
+# -- OpenDKIM settings
+node.override['opendkim']['conf']['Mode'] = 'sv'
+node.override['opendkim']['conf']['Socket'] = "inet:#{node['mailbag']['opendkim_port']}@localhost6"
+include_recipe 'opendkim'
+
 include_recipe 'postfix::server'
 
 %w(doc pcre cdb).each do |extra_postfix_pkg|
