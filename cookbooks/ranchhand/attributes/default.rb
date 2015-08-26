@@ -17,6 +17,7 @@ node.override['sysctl']['params']['net']['ipv6']['conf']['all']['forwarding'] = 
 # If the node has a 'real' IPv6 address, not just loopback
 if node['ip6addresss'] && node['ip6addresss'] != '::1'
   node.default['ranchhand']['ipv6'] = true
+  node.override['iptables-ng']['enabled_ip_versions'] = [4, 6]
 else
   node.default['ranchhand']['ipv6'] = false
   node.override['iptables-ng']['enabled_ip_versions'] = [4]
@@ -34,6 +35,9 @@ elsif node['platform'] == 'arch'
   node.override['sysctl']['conf_file'] = File.join(node['sysctl']['conf_dir'], '/99-chef-attributes.conf')
   node.override['sshd']['package'] = 'openssh'
   node.override['ntp']['packages'] = %w(ntp)
+
+  node.override['nginx']['user'] = 'http'
+  node.override['nginx']['group'] = 'http'
 end
 
 node.default['ranchhand']['mosh'] = false
