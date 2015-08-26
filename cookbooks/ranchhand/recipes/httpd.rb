@@ -30,7 +30,7 @@ if node['ranchhand']['httpd'] == 'nginx'
 
   rewind "template[nginx.conf]" do
     source 'my_nginx.cfg.erb'
-    cookbook 'mailbag'
+    cookbook 'ranchhand'
   end
 
   # don't make the default site template
