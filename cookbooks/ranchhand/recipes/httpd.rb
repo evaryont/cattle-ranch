@@ -29,7 +29,7 @@ if node['ranchhand']['httpd'] == 'nginx'
   end
 
   rewind "template[nginx.conf]" do
-    source 'my_nginx.cfg.erb'
+    source 'my_nginx.conf.erb'
     cookbook 'ranchhand'
   end
 
