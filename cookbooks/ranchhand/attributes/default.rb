@@ -38,6 +38,7 @@ elsif node['platform'] == 'arch'
 
   node.override['nginx']['user'] = 'http'
   node.override['nginx']['group'] = 'http'
+  node.override['nginx']['pid'] = nil
 end
 
 node.default['ranchhand']['mosh'] = false

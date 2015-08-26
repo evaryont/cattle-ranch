@@ -28,6 +28,11 @@ if node['ranchhand']['httpd'] == 'nginx'
     action :delete
   end
 
+  rewind "template[nginx.conf]" do
+    source 'my_nginx.cfg.erb'
+    cookbook 'mailbag'
+  end
+
   # don't make the default site template
   unwind "template[#{node['nginx']['dir']}/sites-available/default]"
   # and ensure it's deleted from the system
