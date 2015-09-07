@@ -38,7 +38,7 @@ EOPOST_REC
   owner node['ranchhand']['admin_name']
   group node['ranchhand']['admin_name']
   mode '0755'
-  notifies 'execute[git denyCurrentBranch]'
+  notifies 'execute[git denyCurrentBranch]', :delayed
 end
 
 link "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/files" do
