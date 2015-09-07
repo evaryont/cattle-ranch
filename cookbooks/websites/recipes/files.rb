@@ -3,16 +3,16 @@
 # file management and access is left to better tools. It's all about the quick &
 # dirty here.
 
-@file_depot_dir = '/var/www/files'
+file_depot_dir = '/var/www/files'
 
 # it is assumed that the directory is a git dir.
-directory @file_depot_dir do
+directory file_depot_dir do
   owner node['ranchhand']['admin_name']
   group node['nginx']['group']
   mode '0755'
 end
 
-directory "#{@file_depot_dir}/.git/hooks" do
+directory "#{file_depot_dir}/.git/hooks" do
   recursive true
 end
 
@@ -21,13 +21,13 @@ end
 # changes to on disk files...
 execute 'git denyCurrentBranch' do
   command '/usr/bin/git config receive.denyCurrentBranch ignore'
-  cwd @file_depot_dir
+  cwd file_depot_dir
   action :nothing
 end
 
 # ...so we use this post-receive hook to force the state of HEAD to be up to
 # date
-file "#{@file_depot_dir}/.git/hooks/post-receive" do
+file "#{file_depot_dir}/.git/hooks/post-receive" do
   content <<EOPOST_REC
 #!/bin/bash
 
@@ -45,13 +45,13 @@ end
 link "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/files" do
   owner node['ranchhand']['admin_name']
   group node['ranchhand']['admin_name']
-  to "#{@file_depot_dir}/downloads"
+  to "#{file_depot_dir}/downloads"
 end
 
 link "/etc/nginx/sites-available/files" do
   owner node['ranchhand']['admin_name']
   group node['ranchhand']['admin_name']
-  to "#{@file_depot_dir}/file_depot.nginx"
+  to "#{file_depot_dir}/file_depot.nginx"
 end
 
 nginx_site 'files' do
