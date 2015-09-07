@@ -5,15 +5,16 @@
 
 @file_depot_dir = '/var/www/files'
 
+# it is assumed that the directory is a git dir.
 directory @file_depot_dir do
   owner node['ranchhand']['admin_name']
   group node['nginx']['group']
   mode '0755'
 end
 
-git @file_depot_dir
-
-directory "#{@file_depot_dir}/.git/hooks"
+directory "#{@file_depot_dir}/.git/hooks" do
+  recursive true
+end
 
 # This setting will tell git to accept incoming pushes for branches that have
 # been checked out already. However it does that in such a way to prevent
