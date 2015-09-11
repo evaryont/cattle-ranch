@@ -47,3 +47,12 @@ search(:node, 'tinc_host_file:[* TO *]').each do |peer_node|
   end
 
 end
+
+iptables_ng_rule '43-tinc-tcp' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 655 --match state --state NEW --jump ACCEPT'
+end
+iptables_ng_rule '43-tinc-udp' do
+  chain 'INPUT'
+  rule '--protocol udp --dport 655 --match state --state NEW --jump ACCEPT'
+end
