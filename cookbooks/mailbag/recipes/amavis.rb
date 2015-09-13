@@ -7,8 +7,7 @@ include_recipe 'clamav::default'
 
 package "amavisd-new"
 
-%w(zoo unzip bzip2 arj nomarch lzop cabextract apt-listchanges libnet-ldap-perl
-   libauthen-sasl-perl clamav-docs daemon libio-string-perl
-   libio-socket-ssl-perl libnet-ident-perl zip libnet-dns-perl).each do |support_pkg|
+%w(zoo unzip arj nomarch lzop cabextract libnet-ldap-perl clamav-docs daemon
+   libnet-ident-perl zip razor libdbi-perl pyzor libmail-dkim-perl).each do |support_pkg|
   package support_pkg
 end
