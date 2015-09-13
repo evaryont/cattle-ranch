@@ -19,5 +19,6 @@ filesystem 'datacrypt' do
 end
 
 # Setup the servers
+include_recipe 'mailbag::amavis'
 include_recipe 'mailbag::smtp'
 include_recipe 'mailbag::imap'
