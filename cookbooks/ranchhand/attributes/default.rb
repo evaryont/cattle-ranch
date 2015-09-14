@@ -26,10 +26,10 @@ end
 
 node.default['ranchhand']['additional_packages'] = []
 if node['platform_family'] == 'debian'
-  node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox aptitude)
+  node.default['ranchhand']['extra_packages'] = %w(git-doc vim-nox aptitude tmux)
 
 elsif node['platform'] == 'arch'
-  node.default['ranchhand']['extra_packages'] = %w(vim vim-runtime the_silver_searcher)
+  node.default['ranchhand']['extra_packages'] = %w(vim vim-runtime the_silver_searcher tmux)
 
   node.override['sysctl']['conf_dir'] = '/etc/sysctl.d'
   node.override['sysctl']['conf_file'] = File.join(node['sysctl']['conf_dir'], '/99-chef-attributes.conf')
