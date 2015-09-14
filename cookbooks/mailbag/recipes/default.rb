@@ -22,3 +22,21 @@
 include_recipe 'mailbag::amavis'
 include_recipe 'mailbag::smtp'
 include_recipe 'mailbag::imap'
+
+# Expose the ports to the internet
+iptables_ng_rule '51-smtp' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 25 --match state --state NEW --jump ACCEPT'
+end
+iptables_ng_rule '52-smtp-submission' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 465 --match state --state NEW --jump ACCEPT'
+end
+iptables_ng_rule '53-imap' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 993 --match state --state NEW --jump ACCEPT'
+end
+iptables_ng_rule '53-managesieve' do
+  chain 'INPUT'
+  rule '--protocol tcp --dport 4190 --match state --state NEW --jump ACCEPT'
+end

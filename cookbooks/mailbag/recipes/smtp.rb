@@ -41,7 +41,6 @@ pf_main['smtp_tls_session_cache_database'] = 'btree:${queue_directory}/smtp_scac
 pf_main['smtpd_tls_auth_only'] = 'yes'
 pf_main['smtp_tls_security_level'] = 'may'
 pf_main['smtp_tls_loglevel'] = '2'
-# TODO: PKI with chef-vault
 pf_main['smtpd_tls_cert_file'] = nogweii_cert.certificate
 pf_main['smtpd_tls_key_file'] = nogweii_cert.key
 
@@ -53,6 +52,13 @@ pf_main['smtpd_helo_required'] = 'yes'
 # of user discovery.
 pf_main['smtpd_delay_reject'] = 'yes'
 pf_main['disable_vrfy_command'] = 'yes'
+
+pf_main['smtpd_recipient_restrictions'] = %w(
+  permit_mynetworks
+  reject_unauth_destination
+  reject_unknown_recipient_domain
+  reject_unverified_recipient
+)
 
 # This a bit sneaky on my part, but it's a neat trick. Like Google's magic '+'
 # in the email address, but it works for a lot of older/dumber web forms that
@@ -89,10 +95,12 @@ pf_main['postscreen_bare_newline_enable'] = 'yes'
 pf_main['postscreen_non_smtp_command_enable'] = 'yes'
 pf_main['postscreen_pipelining_enable'] = 'yes'
 
-pf_main['milter_protocol'] = 2
-pf_main['milter_default_action'] = 'accept'
-pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
-pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+pf_main['virtual_transport'] = "lmtp:unix:private/dovecot-lmtp"
+
+#pf_main['milter_protocol'] = 2
+#pf_main['milter_default_action'] = 'accept'
+#pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+#pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
 
 # -- OpenDKIM settings
 node.override['opendkim']['conf']['Mode'] = 'sv'
