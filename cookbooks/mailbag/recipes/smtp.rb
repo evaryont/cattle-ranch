@@ -1,7 +1,10 @@
 # Configure the server to run an smtp server
 
+# This is a list of all of the domains this server is responsible for.
+domains = Array[node['mailbag']['my_domains'] + ['localhost']].uniq.sort
+standard_email_aliases = %w[webmaster postmaster hostmaster abuse admin root]
+
 node.override['postfix']['mail_type'] = 'master'
-mail_server_domain = 'nogweii.xyz'
 pf_main = node.override['postfix']['main']
 
 node.override['postfix']['master']['submission'] = true
@@ -9,14 +12,43 @@ node.override['postfix']['master']['submission'] = true
 # What network addresses should postfix trust? Answer: Only itself.
 pf_main['mynetworks'] = [ "127.0.0.0/8" ]
 # What domain should this mail server answer to?
-pf_main['mydomain'] = mail_server_domain
+pf_main['mydomain'] = node['ranchhand']['domain_name']
 # When a local/shell user sends a mail, what domain should be implied? Since
 # we're an MX server, we should use the same thing as $mydomain.
-pf_main['myorigin'] = mail_server_domain
-# Listen on all IP interfaces. IPv6 inlcuded!
+pf_main['myorigin'] = node['ranchhand']['domain_name']
+# What name does postfix call this server, when talking to other machines?
+pf_main['myhostname'] = "#{node.name}.#{node['ranchhand']['domain_name']}"
+
+# List of domains to use local transport, set to blank as I don't use this.
+# Everything is routed through to the virtual transport
+pf_main['mydestination'] = ""
+# List of domains to use the virtual transport, which is every domain I care
+# about
+pf_main['virtual_mailbox_domains'] = domains
+
+node.override['postfix']['use_virtual_aliases_domains'] = true
+node.override['postfix']['use_virtual_aliases'] = true
+
+pf_main['virtual_alias_maps'] = "#{node['postfix']['virtual_alias_db_type']}:#{node['postfix']['virtual_alias_db']}"
+node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
+pf_main['virtual_mailbox_maps'] = "#{node['postfix']['virtual_alias_domains_db_type']}:#{node['postfix']['virtual_alias_domains_db']}"
+
+# Listen on all IP interfaces. IPv6 included!
 pf_main['inet_interfaces'] = "all"
 # Generic smtpd banner goes here, less discoverable info the better
 pf_main['smtpd_banner'] = '$myhostname ESMTP $mail_name'
+
+# Given the list of standard email users that various industries expect, and the
+# list of domains I manage, create a map for all of them across all domains to
+# the virtual user boss
+standard_email_mappings = standard_email_aliases.map do |user_part|
+  domains.map do |domain_part|
+    ["#{user_part}@#{domain_part}", "boss"]
+  end
+end
+
+node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings.flatten(1)].merge(node['mailbag']['aliases'])
+node.override['postfix']['virtual_aliases_domains'] = Hash[node.default['mailbag']['emails'].map { |email_address| [email_address, "valid"] }]
 
 # -- TLS Configuration
 nogweii_cert = certificate_manage 'nogweii.xyz' do
@@ -36,8 +68,8 @@ pf_main['smtpd_tls_mandatory_ciphers'] = 'high'
 pf_main['tls_high_cipherlist'] = 'ECDH+aRSA+AES256:ECDH+aRSA+AES128:AES256-SHA:DES-CBC3-SHA'
 pf_main['smtp_tls_note_starttls_offer'] = 'yes'
 pf_main['smtpd_tls_received_header'] = 'yes'
-pf_main['smtpd_tls_session_cache_database'] = 'btree:${queue_directory}/smtpd_scache'
-pf_main['smtp_tls_session_cache_database'] = 'btree:${queue_directory}/smtp_scache'
+pf_main['smtpd_tls_session_cache_database'] = 'btree:${data_directory}/smtpd_scache'
+pf_main['smtp_tls_session_cache_database'] = 'btree:${data_directory}/smtp_scache'
 pf_main['smtpd_tls_auth_only'] = 'yes'
 pf_main['smtp_tls_security_level'] = 'may'
 pf_main['smtp_tls_loglevel'] = '2'
@@ -70,7 +102,7 @@ pf_main['recipient_delimiter'] = '.'
 postscreen_access_cidr = "#{node['postfix']['conf_dir']}/postscreen_access.cidr"
 postscreen_dnsbl_reply_map = "#{node['postfix']['conf_dir']}/postscreen_dnsbl_reply_map.pcre"
 pf_main['postscreen_access_list'] = ['permit_mynetworks',
-                                     "cidr:#{postscreen_access_cidr}"] 
+                                     "cidr:#{postscreen_access_cidr}"]
 pf_main['postscreen_blacklist_action'] = 'drop'
 pf_main['postscreen_dnsbl_action'] = 'enforce'
 pf_main['postscreen_dnsbl_reply_map'] = "pcre:#{postscreen_dnsbl_reply_map}"
