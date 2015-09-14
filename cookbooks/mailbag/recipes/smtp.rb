@@ -1,7 +1,7 @@
 # Configure the server to run an smtp server
 
 # This is a list of all of the domains this server is responsible for.
-domains = Array[node['mailbag']['my_domains'] + ['localhost']].uniq.sort
+domains = Array[node['mailbag']['my_domains'] + ['localhost']].sort.uniq
 standard_email_aliases = %w[webmaster postmaster hostmaster abuse admin root]
 
 node.override['postfix']['mail_type'] = 'master'
@@ -26,29 +26,28 @@ pf_main['mydestination'] = ""
 # about
 pf_main['virtual_mailbox_domains'] = domains
 
-node.override['postfix']['use_virtual_aliases_domains'] = true
-node.override['postfix']['use_virtual_aliases'] = true
-
-pf_main['virtual_alias_maps'] = "#{node['postfix']['virtual_alias_db_type']}:#{node['postfix']['virtual_alias_db']}"
-node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
-pf_main['virtual_mailbox_maps'] = "#{node['postfix']['virtual_alias_domains_db_type']}:#{node['postfix']['virtual_alias_domains_db']}"
-
 # Listen on all IP interfaces. IPv6 included!
 pf_main['inet_interfaces'] = "all"
 # Generic smtpd banner goes here, less discoverable info the better
 pf_main['smtpd_banner'] = '$myhostname ESMTP $mail_name'
 
+standard_email_mappings = []
 # Given the list of standard email users that various industries expect, and the
 # list of domains I manage, create a map for all of them across all domains to
 # the virtual user boss
-standard_email_mappings = standard_email_aliases.map do |user_part|
-  domains.map do |domain_part|
-    ["#{user_part}@#{domain_part}", "boss"]
+domains.each do |domain_part|
+  standard_email_aliases.each do |user_part|
+    standard_email_mappings << ["#{user_part}@#{domain_part}", "boss"]
   end
 end
 
-node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings.flatten(1)].merge(node['mailbag']['aliases'])
-node.override['postfix']['virtual_aliases_domains'] = Hash[node.default['mailbag']['emails'].map { |email_address| [email_address, "valid"] }]
+pf_main['virtual_alias_maps'] = "#{node['postfix']['virtual_alias_db_type']}:#{node['postfix']['virtual_alias_db']}"
+pf_main['virtual_mailbox_maps'] = "#{node['postfix']['virtual_alias_domains_db_type']}:#{node['postfix']['virtual_alias_domains_db']}"
+node.override['postfix']['use_virtual_aliases_domains'] = true
+node.override['postfix']['use_virtual_aliases'] = true
+node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
+node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings].merge(node['mailbag']['aliases'])
+node.override['postfix']['virtual_aliases_domains'] = Hash[node['mailbag']['emails'].map { |email_address| [email_address, "valid"] }]
 
 # -- TLS Configuration
 nogweii_cert = certificate_manage 'nogweii.xyz' do
