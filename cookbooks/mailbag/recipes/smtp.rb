@@ -1,7 +1,7 @@
 # Configure the server to run an smtp server
 
 # This is a list of all of the domains this server is responsible for.
-domains = Array[node['mailbag']['my_domains'] + ['localhost']].sort.uniq
+domains = Array[node['mailbag']['my_domains'] + ['localhost']].flatten.sort.uniq
 standard_email_aliases = %w[webmaster postmaster hostmaster abuse admin root]
 
 node.override['postfix']['mail_type'] = 'master'
@@ -41,11 +41,11 @@ domains.each do |domain_part|
   end
 end
 
+node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
 pf_main['virtual_alias_maps'] = "#{node['postfix']['virtual_alias_db_type']}:#{node['postfix']['virtual_alias_db']}"
 pf_main['virtual_mailbox_maps'] = "#{node['postfix']['virtual_alias_domains_db_type']}:#{node['postfix']['virtual_alias_domains_db']}"
 node.override['postfix']['use_virtual_aliases_domains'] = true
 node.override['postfix']['use_virtual_aliases'] = true
-node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
 node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings].merge(node['mailbag']['aliases'])
 node.override['postfix']['virtual_aliases_domains'] = Hash[node['mailbag']['emails'].map { |email_address| [email_address, "valid"] }]
 
