@@ -48,6 +48,7 @@ node.override['postfix']['use_virtual_aliases_domains'] = true
 node.override['postfix']['use_virtual_aliases'] = true
 node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings].merge(node['mailbag']['aliases'])
 node.override['postfix']['virtual_aliases_domains'] = Hash[node['mailbag']['emails'].map { |email_address| [email_address, "valid"] }]
+node.override['postfix']['main']['virtual_alias_domains'] = ""
 
 # -- TLS Configuration
 nogweii_cert = certificate_manage 'nogweii.xyz' do
