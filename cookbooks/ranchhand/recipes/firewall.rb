@@ -118,6 +118,6 @@ node['ranchhand']['firewall_ports'].each do |port_spec|
   type.downcase!
   iptables_ng_rule "21-arbitrary-#{type}-#{port}" do
     chain 'INPUT'
-    rule "--protocol #{type} --dport #{port} --match state --state NEW --jump ACCEPT --comment 'Arbitrary rule for #{port}/#{type}'"
+    rule "--protocol #{type} --dport #{port} --match state --state NEW --jump ACCEPT -m comment --comment 'Arbitrary rule for #{port}/#{type}'"
   end
 end
