@@ -112,12 +112,19 @@ iptables_ng_rule '04_block-fake-localhost' do
   ip_version 4
 end
 
-# Each port in this list should be of the format: "123/tcp" (or UDP if neededp)
+# Each port in this list should be of the format: "123/tcp" (or UDP if needed,
+# or appended with '6' for IPv6 rules)
 node['ranchhand']['firewall_ports'].each do |port_spec|
   port, type = port_spec.split('/')
+  target_ip_version = 4
+  if port.chomp!('6')
+    target_ip_version = 6
+  end
   type.downcase!
+
   iptables_ng_rule "21-arbitrary-#{type}-#{port}" do
     chain 'INPUT'
-    rule "--protocol #{type} --dport #{port} --match state --state NEW --jump ACCEPT -m comment --comment 'Arbitrary rule for #{port}/#{type}'"
+    rule "--protocol #{type} --dport #{port} --match state --state NEW --jump ACCEPT -m comment --comment \"Arbitrary rule for #{port}/#{type}\""
+    ip_version target_ip_version
   end
 end
