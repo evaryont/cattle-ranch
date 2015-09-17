@@ -58,3 +58,4 @@ node.default['ranchhand']['openssl_dev'] = case node['platform_family']
                                            end
 
 node.default['ranchhand']['ssl_cert_dir'] = '/etc/ssl/chef'
+node.default['ranchhand']['firewall_ports'] = []
