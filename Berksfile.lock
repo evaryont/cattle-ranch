@@ -33,7 +33,7 @@ DEPENDENCIES
   mysql
   ntp
   omnibus_updater (~> 1.0.2)
-  os-hardening (~> 1.2.0)
+  os-hardening (~> 1.3.1)
   pacman
     git: https://github.com/logankoester/pacman
     revision: fd7be0f818f2b79dbd812d93fcafb2ed78a88e00
@@ -144,7 +144,7 @@ GRAPH
   onddo-spamassassin (1.1.0)
   opendkim (0.2.0)
     yum-epel (~> 0.5)
-  os-hardening (1.2.0)
+  os-hardening (1.3.1)
     apt (>= 0.0.0)
     sysctl (>= 0.3.0)
     yum (>= 0.0.0)
