@@ -63,12 +63,12 @@ node.default['sshd']['sshd_config']['UsePrivilegeSeparation'] = 'sandbox'
 if ssh_version >= Gem::Version.new("6.5")
   Chef::Log.info "OpenSSH supports Ed25519 keys!"
   node.override['sshd']['sshd_config']['HostKey'] = ['/etc/ssh/ssh_host_ed25519_key', '/etc/ssh/ssh_host_rsa_key']
-  @ed22519_key = true
+  ed22519_key = true
 else
   Chef::Log.warn "OpenSSH: No support for Ed25519 keys."
   # older versions though, will break. So don't break them, and only use RSA.
   node.override['sshd']['sshd_config']['HostKey'] = ['/etc/ssh/ssh_host_rsa_key']
-  @ed22519_key = false
+  ed22519_key = false
 end
 
 # Delete old SSH protocol 2 keys
@@ -89,7 +89,7 @@ file "/etc/ssh/ssh_host_key.pub" do
   action :delete
 end
 
-if @ed22519_key
+if ed22519_key
   execute 'generate Ed25519 host keys' do
      command <<-EOBASH
 ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key < /dev/null
