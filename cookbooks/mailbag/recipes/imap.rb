@@ -30,6 +30,26 @@ node.override['dovecot']['conf']['hostname'] = 'oregano.nogweii.xyz'
 node.override['dovecot']['conf']['mail_home'] = '/var/mail/%u'
 node.override['dovecot']['conf']['mail_location'] = 'mdbox:~/mail'
 
+# Dovecot will lookup users & authenticate credentials using PAM, aka, local
+# accounts on the system
+node.default['dovecot']['auth']['system']['userdb'] = {
+  'driver' => 'passwd',
+  'args' => 'blocking=no'
+}
+node.default['dovecot']['auth']['system']['passdb'] = {
+  'driver' => 'pam',
+  'args' => 'failure_show_msg=yes dovecot'
+}
+node.default['dovecot']['services']['auth']['listeners'] = [
+  {
+    'unix:/var/spool/postfix/private/auth' => {
+      'mode'  => '0666',
+      'user'  => 'postfix',
+      'group' => 'postfix'
+    }
+  }
+]
+
 node.override['dovecot']['protocols']['imap'] = {}
 node.override['dovecot']['protocols']['lmtp'] = {
   'mail_plugins' => 'sieve',
