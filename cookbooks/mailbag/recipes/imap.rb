@@ -27,8 +27,15 @@ node.override['dovecot']['conf']['log_timestamp'] = '"%Y-%m-%d %H:%M:%S"'
 node.override['dovecot']['conf']['postmaster_address'] = 'postmaster@nogweii.xyz'
 node.override['dovecot']['conf']['hostname'] = 'oregano.nogweii.xyz'
 
+# Each user will store their mail in /var/mail/USER/mail. Other directories and
+# files underneath /var/mail/USER/ might be used by dovecot for indexing or
+# sieve.
 node.override['dovecot']['conf']['mail_home'] = '/var/mail/%u'
 node.override['dovecot']['conf']['mail_location'] = 'mdbox:~/mail'
+
+# Drop the domain from the incoming username when looking up the user in the
+# database
+node.override['dovecot']['conf']['auth_username_format'] = '%Ln'
 
 # Dovecot will lookup users & authenticate credentials using PAM, aka, local
 # accounts on the system
