@@ -21,7 +21,6 @@
 user 'boss' do
   comment 'Receptor of administrivia'
   shell '/usr/sbin/nologin'
-  action :nothing
 end
 
 # Setup the servers
