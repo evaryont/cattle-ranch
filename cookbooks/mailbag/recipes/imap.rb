@@ -40,26 +40,35 @@ node.override['dovecot']['conf']['auth_username_format'] = '%Ln'
 # Dovecot will lookup users & authenticate credentials using PAM, aka, local
 # accounts on the system
 node.default['dovecot']['auth']['system']['userdb'] = {
-  'driver' => 'passwd',
-  'args' => 'blocking=no'
+  'driver'          => 'passwd',
+  'args'            => 'blocking=no',
+  'override_fields' => 'home=/var/mail/%u mail=maildir:/var/mail/%u/Maildir uid=mail gid=mail'
 }
 node.default['dovecot']['auth']['system']['passdb'] = {
   'driver' => 'pam',
-  'args' => 'failure_show_msg=yes dovecot'
+  'args'   => 'failure_show_msg=yes dovecot'
 }
 node.default['dovecot']['services']['auth']['listeners'] = [
   {
+    # Postfix uses this to do SASL lookups/authentication
     'unix:/var/spool/postfix/private/auth' => {
       'mode'  => '0666',
       'user'  => 'postfix',
       'group' => 'postfix'
-    }
+    },
+
+    # Dovecot's own connection to the authentication worker
+    'unix:auth-userdb' => {
+      'mode'  => '0660',
+      'user'  => 'mail',
+      'group' => 'mail'
+    },
   }
 ]
 
 node.override['dovecot']['protocols']['imap'] = {}
 node.override['dovecot']['protocols']['lmtp'] = {
-  'mail_plugins' => 'sieve',
+  'mail_plugins'       => 'sieve',
   'postmaster_address' => 'postmaster@nogweii.xyz'
 }
 node.override['dovecot']['services']['lmtp']['listeners'] = [
