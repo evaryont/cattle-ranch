@@ -115,9 +115,7 @@ pf_main['postscreen_dnsbl_sites'] = ['zen.spamhaus.org*3',
                                      'psbl.surriel.com',
                                      'bl.mailspike.net',
                                      'swl.spamhaus.org*-4',
-                                     'list.dnswl.org=127.[0..255].[0..255].0*-2',
-                                     'list.dnswl.org=127.[0..255].[0..255].1*-3',
-                                     'list.dnswl.org=127.[0..255].[0..255].[2..255]*-4']
+                                     'list.dnswl.org=127.0.[0..255].[1..3]*-5']
 pf_main['postscreen_dnsbl_threshold'] = '3'
 pf_main['postscreen_greet_action'] = 'enforce'
 pf_main['postscreen_whitelist_interfaces'] = ['192.168.0.0/24',
