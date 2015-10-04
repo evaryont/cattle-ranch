@@ -23,6 +23,17 @@ user 'boss' do
   shell '/usr/sbin/nologin'
 end
 
+group 'vmails' do
+  system true
+end
+
+user 'vmail' do
+  comment 'Account for virtual mail subsytem'
+  shell '/usr/sbin/nologin'
+  system true
+  gid 'vmails'
+end
+
 # Setup the servers
 include_recipe 'mailbag::amavis'
 include_recipe 'mailbag::smtp'

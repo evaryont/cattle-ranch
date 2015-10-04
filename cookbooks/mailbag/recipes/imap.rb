@@ -42,7 +42,7 @@ node.override['dovecot']['conf']['auth_username_format'] = '%Ln'
 node.default['dovecot']['auth']['system']['userdb'] = {
   'driver'          => 'passwd',
   'args'            => 'blocking=no',
-  'override_fields' => 'home=/var/mail/%u mail=maildir:/var/mail/%u/Maildir uid=mail gid=mail'
+  'override_fields' => 'home=/var/mail/%u mail=maildir:/var/mail/%u/Maildir uid=vmail gid=vmails'
 }
 node.default['dovecot']['auth']['system']['passdb'] = {
   'driver' => 'pam',
@@ -60,8 +60,8 @@ node.default['dovecot']['services']['auth']['listeners'] = [
     # Dovecot's own connection to the authentication worker
     'unix:auth-userdb' => {
       'mode'  => '0660',
-      'user'  => 'mail',
-      'group' => 'mail'
+      'user'  => 'vmail',
+      'group' => 'vmails'
     },
   }
 ]
@@ -80,7 +80,7 @@ node.override['dovecot']['services']['lmtp']['listeners'] = [
     }
   }
 ]
-node.override['dovecot']['services']['lmtp']['user'] = 'mail'
+node.override['dovecot']['services']['lmtp']['user'] = 'vmail'
 
 node.override['dovecot']['protocols']['sieve'] = {}
 
