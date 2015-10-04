@@ -10,8 +10,8 @@ nogweii_cert = certificate_manage 'nogweii.xyz' do
   data_bag 'ssl'
   data_bag_type 'encrypted'
 end
-node.override['dovecot']['conf']['ssl_cert'] = nogweii_cert.certificate
-node.override['dovecot']['conf']['ssl_key'] = nogweii_cert.key
+node.override['dovecot']['conf']['ssl_cert'] = "<" + nogweii_cert.certificate
+node.override['dovecot']['conf']['ssl_key'] = "<" + nogweii_cert.key
 node.override['dovecot']['conf']['ssl'] = true
 
 node.override['dovecot']['conf']['ssl_protocols'] = "!SSLv2 !SSLv3"
