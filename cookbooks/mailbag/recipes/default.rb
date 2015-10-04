@@ -34,6 +34,12 @@ user 'vmail' do
   gid 'vmails'
 end
 
+directory '/var/mail' do
+  owner 'root'
+  group 'vmails'
+  mode '02775'
+end
+
 # Setup the servers
 include_recipe 'mailbag::amavis'
 include_recipe 'mailbag::smtp'
