@@ -108,13 +108,11 @@ pf_main['postscreen_dnsbl_action'] = 'enforce'
 pf_main['postscreen_dnsbl_reply_map'] = "pcre:#{postscreen_dnsbl_reply_map}"
 pf_main['postscreen_dnsbl_sites'] = ['zen.spamhaus.org*3',
                                      'b.barracudacentral.org*2',
-                                     'bl.spameatingmonkey.net*2',
-                                     'dnsbl.ahbl.org*2',
                                      'bl.spamcop.net',
-                                     'dnsbl.sorbs.net',
                                      'psbl.surriel.com',
                                      'bl.mailspike.net',
-                                     'swl.spamhaus.org*-4']
+                                     'swl.spamhaus.org*-4',
+                                     'list.dnswl.org*-4']
 pf_main['postscreen_dnsbl_threshold'] = '3'
 pf_main['postscreen_greet_action'] = 'enforce'
 pf_main['postscreen_whitelist_interfaces'] = ['192.168.0.0/24',
