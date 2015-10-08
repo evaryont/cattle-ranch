@@ -131,13 +131,8 @@ pf_main['virtual_transport'] = "lmtp:unix:private/dovecot-lmtp"
 
 pf_main['milter_protocol'] = 2
 pf_main['milter_default_action'] = 'accept'
-pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
-pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
-
-# -- OpenDKIM settings
-node.override['opendkim']['conf']['Mode'] = 'sv'
-node.override['opendkim']['conf']['Socket'] = "inet:#{node['mailbag']['opendkim_port']}@localhost6"
-include_recipe 'opendkim'
+pf_main['smtpd_milters'] = ["unix:#{node['mailbag']['postfix_private_dir']}/#{node['mailbag']['opendkim_socket']}"]
+pf_main['non_smtpd_milters'] = ["unix:#{node['mailbag']['postfix_private_dir']}/#{node['mailbag']['opendkim_socket']}"]
 
 include_recipe 'postfix::server'
 
@@ -147,9 +142,6 @@ end
 
 # Install supplementary programs for policy services, milters, etc.
 package "postfix-policyd-spf-python"
-node['opendkim']['packages']['tools'].each do |dkim_tool_package|
-  package dkim_tool_package
-end
 
 chef_gem 'chef-rewind'
 require 'chef/rewind'

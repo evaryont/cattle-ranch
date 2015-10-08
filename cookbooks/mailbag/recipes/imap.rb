@@ -51,7 +51,7 @@ node.default['dovecot']['auth']['system']['passdb'] = {
 node.default['dovecot']['services']['auth']['listeners'] = [
   {
     # Postfix uses this to do SASL lookups/authentication
-    'unix:/var/spool/postfix/private/auth' => {
+    "unix:#{node.default['mailbag']['postfix_private_dir']}/auth" => {
       'mode'  => '0666',
       'user'  => 'postfix',
       'group' => 'postfix'
@@ -73,7 +73,7 @@ node.override['dovecot']['protocols']['lmtp'] = {
 }
 node.override['dovecot']['services']['lmtp']['listeners'] = [
   {
-    'unix:/var/spool/postfix/private/dovecot-lmtp' => {
+    "unix:#{node.default['mailbag']['postfix_private_dir']}/dovecot-lmtp" => {
       'mode'  => '0600',
       'group' => 'postfix',
       'user'  => 'postfix'

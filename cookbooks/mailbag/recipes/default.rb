@@ -44,6 +44,7 @@ end
 include_recipe 'mailbag::amavis'
 include_recipe 'mailbag::smtp'
 include_recipe 'mailbag::imap'
+include_recipe 'mailbag::_dkim'
 
 # Expose the ports to the internet
 iptables_ng_rule '51-smtp' do
