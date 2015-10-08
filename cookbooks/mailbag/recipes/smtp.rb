@@ -145,7 +145,11 @@ include_recipe 'postfix::server'
   package "postfix-#{extra_postfix_pkg}"
 end
 
+# Install supplementary programs for policy services, milters, etc.
 package "postfix-policyd-spf-python"
+node['opendkim']['packages']['tools'].each do |dkim_tool_package|
+  package dkim_tool_package
+end
 
 chef_gem 'chef-rewind'
 require 'chef/rewind'
