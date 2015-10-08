@@ -88,9 +88,14 @@ pf_main['disable_vrfy_command'] = 'yes'
 pf_main['smtpd_recipient_restrictions'] = %w(
   permit_mynetworks
   reject_unauth_destination
+  check_policy_service unix:private/policyd-spf
   reject_unknown_recipient_domain
   reject_unverified_recipient
 )
+
+# Ensure the SPF policy server has enough time to do the DNS queries before
+# postfix times it out
+pf_main['policyd-spf_time_limit'] = 3600
 
 # This a bit sneaky on my part, but it's a neat trick. Like Google's magic '+'
 # in the email address, but it works for a lot of older/dumber web forms that
@@ -124,10 +129,10 @@ pf_main['postscreen_pipelining_enable'] = 'yes'
 
 pf_main['virtual_transport'] = "lmtp:unix:private/dovecot-lmtp"
 
-#pf_main['milter_protocol'] = 2
-#pf_main['milter_default_action'] = 'accept'
-#pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
-#pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+pf_main['milter_protocol'] = 2
+pf_main['milter_default_action'] = 'accept'
+pf_main['smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
+pf_main['non_smtpd_milters'] = ["inet:localhost6:#{node['mailbag']['opendkim_port']}"]
 
 # -- OpenDKIM settings
 node.override['opendkim']['conf']['Mode'] = 'sv'
@@ -139,6 +144,8 @@ include_recipe 'postfix::server'
 %w(doc pcre cdb).each do |extra_postfix_pkg|
   package "postfix-#{extra_postfix_pkg}"
 end
+
+package "postfix-policyd-spf-python"
 
 chef_gem 'chef-rewind'
 require 'chef/rewind'
