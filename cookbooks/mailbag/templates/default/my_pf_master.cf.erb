@@ -42,7 +42,6 @@ dnsblog   unix  -       -       n       -       0       dnsblog
 policyd-spf unix  -    n       n       -       0       spawn
     user=policyd-spf argv=/usr/bin/policyd-spf
 
-<% if @settings['submission'] -%>
 # clients submits emails via this
 submission inet n       -       n       -       -       smtpd
   -o syslog_name=postfix/submission
@@ -55,7 +54,6 @@ submission inet n       -       n       -       -       smtpd
   -o smtpd_sasl_security_options=noanonymous
   -o smtpd_sasl_local_domain=$myhostname
   -o milter_macro_daemon_name=ORIGINATING
-<% end -%>
 
 ## pipe incoming messages to dspam anti-spam
 #dspam     unix  -       n       n       -       10      pipe
