@@ -53,7 +53,7 @@ iptables_ng_rule '51-smtp' do
 end
 iptables_ng_rule '52-smtp-submission' do
   chain 'INPUT'
-  rule '--protocol tcp --dport 465 --match state --state NEW --jump ACCEPT'
+  rule '--protocol tcp --dport 587 --match state --state NEW --jump ACCEPT'
 end
 iptables_ng_rule '53-imap' do
   chain 'INPUT'
