@@ -12,9 +12,6 @@ node['websites']['domains'].each do |domain|
   else
     Chef::Log.fatal! "Unsupported http server. I don't know how to deal with #{node['ranchhand']['httpd']}!"
   end
-  domain_template_vars = {'cert'         => domain_cert,
-                          'domain'       => domain,
-                          'domain_d_dir' => domain_d_conf_dir}
 
   directory domain_d_parent_dir do
     owner file_owner
@@ -43,6 +40,10 @@ node['websites']['domains'].each do |domain|
     # going to mandate it. (Yet. TODO: Let's Encrypt client setup)
     domain_cert = nil
   end
+
+  domain_template_vars = {'cert'         => domain_cert,
+                          'domain'       => domain,
+                          'domain_d_dir' => domain_d_conf_dir}
 
   template sites_avail_conf do
     source    domain_template
