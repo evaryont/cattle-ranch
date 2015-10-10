@@ -12,8 +12,11 @@ end
 # configuration and be ready to accept subconfigurations. This is mostly to
 # avoid trying to deal with multiple sites across different configuration files.
 node['websites']['domains'].each do |domain|
-  domain_d_conf_dir   = "#{domain_d_parent_dir}/#{domain}.d"
-  sites_avail_conf    = "#{node['nginx']['dir']}/sites-available/#{domain}_domain"
+  domain_d_conf_dir    = "#{domain_d_parent_dir}/#{domain}.d"
+  sites_avail_conf     = "#{node['nginx']['dir']}/sites-available/#{domain}_domain"
+  domain_template_vars = {'cert'         => domain_cert,
+                          'domain'       => domain,
+                          'domain_d_dir' => domain_d_conf_dir}
 
   directory domain_d_parent_dir do
     owner file_owner
@@ -44,12 +47,10 @@ node['websites']['domains'].each do |domain|
   end
 
   template sites_avail_conf do
-    source domain_template
-    owner  file_owner
-    group  file_group
-    variables({'cert'         => domain_cert,
-               'domain'       => domain,
-               'domain_d_dir' => domain_d_conf_dir})
+    source    domain_template
+    owner     file_owner
+    group     file_group
+    variables domain_template_vars
   end
 end
 
