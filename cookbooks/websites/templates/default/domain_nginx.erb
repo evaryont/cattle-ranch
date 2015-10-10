@@ -18,7 +18,7 @@ server {
   # Since TLS is available, lets redirect every HTTP request to HTTPS
   return 301 https://$server_name$request_uri;
   <% else %>
-  include <%= domain_d_dir %>/*;
+  include <%= @domain_d_dir %>/*;
   <% end %>
 }
 
@@ -59,6 +59,6 @@ server {
   add_header X-XSS-Protection "1; mode=block";
   add_header X-Content-Type-Options nosniff;
 
-  include <%= domain_d_dir %>/*;
+  include <%= @domain_d_dir %>/*;
 }
 <%- end %>
