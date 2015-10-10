@@ -35,7 +35,7 @@ node['websites']['domains'].each do |domain|
       data_bag 'ssl'
       data_bag_type 'encrypted'
     end
-  rescue
+  rescue Net::HTTPServerException
     # But if it doesn't exist, that's no big deal. Less HTTPS, yeah, but I'm not
     # going to mandate it. (Yet. TODO: Let's Encrypt client setup)
     domain_cert = nil
