@@ -1,8 +1,3 @@
-# Include each recipe as needed
-node['websites']['recipes'].each do |recipe_name|
-  include_recipe "websites::#{recipe_name}"
-end
-
 # For each domain listed, configure the HTTP server for domain-scope
 # configuration and be ready to accept subconfigurations. This is mostly to
 # avoid trying to deal with multiple sites across different configuration files.
@@ -55,4 +50,9 @@ node['websites']['domains'].each do |domain|
                'domain'       => domain,
                'domain_d_dir' => domain_d_conf_dir})
   end
+end
+
+# Include each recipe as needed
+node['websites']['recipes'].each do |recipe_name|
+  include_recipe "websites::#{recipe_name}"
 end
