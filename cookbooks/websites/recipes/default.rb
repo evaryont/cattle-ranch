@@ -9,13 +9,20 @@ end
 node['websites']['domains'].each do |domain|
 
   if node['ranchhand']['httpd'] == 'nginx'
-    domain_d_conf_dir = "#{node['nginx']['dir']}/domains/#{domain}.d/"
-    sites_avail_conf = "#{node['nginx']['dir']}/sites-available/#{domain}_domain"
-    domain_template = 'domain_nginx.erb'
-    file_owner = node['nginx']['user']
-    file_group = node['nginx']['group']
+    domain_d_parent_dir = "#{node['nginx']['dir']}/domains"
+    domain_d_conf_dir   = "#{domain_d_parent_dir}/#{domain}.d"
+    sites_avail_conf    = "#{node['nginx']['dir']}/sites-available/#{domain}_domain"
+    domain_template     = 'domain_nginx.erb'
+    file_owner          = node['nginx']['user']
+    file_group          = node['nginx']['group']
   else
     Chef::Log.fatal! "Unsupported http server. I don't know how to deal with #{node['ranchhand']['httpd']}!"
+  end
+
+  directory domain_d_parent_dir do
+    owner file_owner
+    group file_group
+    mode '0755'
   end
 
   directory domain_d_conf_dir do
