@@ -3,8 +3,8 @@
 # avoid trying to deal with multiple sites across different configuration files.
 node['websites']['domains'].each do |domain|
   if node['ranchhand']['httpd'] == 'nginx'
-    domain_d_conf_dir   = "#{domain_d_parent_dir}/#{domain}.d"
     domain_d_parent_dir = "#{node['nginx']['dir']}/domains"
+    domain_d_conf_dir   = "#{domain_d_parent_dir}/#{domain}.d"
     domain_template     = 'domain_nginx.erb'
     file_group          = node['nginx']['group']
     file_owner          = node['nginx']['user']
