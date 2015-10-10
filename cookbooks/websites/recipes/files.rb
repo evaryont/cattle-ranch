@@ -48,7 +48,7 @@ link "#{node['etc']['passwd'][node['ranchhand']['admin_name']]['dir']}/files" do
   to "#{file_depot_dir}/downloads"
 end
 
-link "/etc/nginx/sites-available/files" do
+link "#{node['nginx']['dir']}/domains/files.evs.sx.d/files" do
   owner node['ranchhand']['admin_name']
   group node['ranchhand']['admin_name']
   to "#{file_depot_dir}/file_depot.nginx"

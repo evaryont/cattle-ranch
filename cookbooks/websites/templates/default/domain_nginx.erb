@@ -1,28 +1,27 @@
 # <%= node['config_disclaimer'] %>
 
-# Configuration for my personal website. It's expected that it'll be
-# self-contained and static. See also,
-# https://github.com/evaryont/evaryont.github.io
+# This is the configuration for a particular domain name. Each domain is
+# configured by their own individual file and configuration directory. Once
+# enabled, put additional location directives inside the domain specific
+# directory.
+#
+# This configuration file is for the domain <%= @domain %>.
+# Put additional directives to be applied only to it in the directory
+# <%= node['nginx']['dir'] %>/domains/<%= @domain %>.d/
 
 server {
   listen 80;
-  server_name evaryont.me;
+  server_name <%= @domain %>;
 
-  access_log <%= node['nginx']['log_dir'] %>/evaryont.me.log combined;
+  access_log <%= node['nginx']['log_dir'] %>/<%= @domain %>.log combined;
   root <%= node['websites']['blog_dir'] %>;
-
-  location / {
-    index index.html;
-    autoindex off;
-  }
 }
 
 server {
   listen 443 ssl;
-  server_name evaryont.me;
+  server_name <%= @domain %>;
 
-  access_log <%= node['nginx']['log_dir'] %>/evaryont.me.log combined;
-  root <%= node['websites']['blog_dir'] %>;
+  access_log <%= node['nginx']['log_dir'] %>/<%= @domain %>.log combined;
 
   # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
   ssl_certificate <%= @cert.certificate %>;
@@ -45,16 +44,18 @@ server {
 
   # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
   add_header Strict-Transport-Security max-age=15768000;
- 
-  etag on;
 
-  location / {
-    index index.html;
-    autoindex off;
-    expires 21d;
-  }
+  # OCSP stapling
+  ssl_stapling on;
+  ssl_stapling_verify on;
+  resolver 8.8.8.8 8.8.4.4 valid=300s;
+  resolver_timeout 5s;
 
-  location /assets {
-    expires max;
-  }
+  # A few security related headers. NB: If there are any add_header directives
+  # in a lower block, these will *not* be inherited!
+  add_header X-Frame-Options SAMEORIGIN;
+  add_header X-XSS-Protection "1; mode=block";
+  add_header X-Content-Type-Options nosniff;
+
+  include <%= domain_d_conf_dir %>/*;
 }

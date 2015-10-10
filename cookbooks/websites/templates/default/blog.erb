@@ -1,0 +1,17 @@
+# <%= node['config_disclaimer'] %>
+
+# Configuration for my personal website. It's expected that it'll be
+# self-contained and static. See also,
+# https://github.com/evaryont/evaryont.github.io
+
+etag on;
+
+location / {
+  index index.html;
+  autoindex off;
+  expires 21d;
+}
+
+location /assets {
+  expires max;
+}
