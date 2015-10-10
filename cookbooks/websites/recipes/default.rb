@@ -51,7 +51,7 @@ node['websites']['domains'].each do |domain|
     source domain_template
     owner  file_owner
     group  file_group
-    variables({'cert'         => evsme_cert,
+    variables({'cert'         => domain_cert,
                'domain'       => domain,
                'domain_d_dir' => domain_d_conf_dir})
   end
