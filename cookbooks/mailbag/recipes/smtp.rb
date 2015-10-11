@@ -31,6 +31,11 @@ pf_main['inet_interfaces'] = "all"
 # Generic smtpd banner goes here, less discoverable info the better
 pf_main['smtpd_banner'] = '$myhostname ESMTP $mail_name'
 
+# Don't send new mail notifications to console users
+pf_main['biff'] = 'no'
+# appending .domain is the MUA's job
+pf_main['append_dot_mydomain'] = 'no'
+
 standard_email_mappings = []
 # Given the list of standard email users that various industries expect, and the
 # list of domains I manage, create a map for all of them across all domains to
@@ -60,25 +65,67 @@ nogweii_cert = certificate_manage 'nogweii.xyz' do
   data_bag_type 'encrypted'
 end
 pf_main['smtpd_use_tls'] = 'yes'
-pf_main['smtpd_tls_ciphers'] = 'high'
-pf_main['smtpd_tls_exclude_ciphers'] = 'aNULL, MD5, DES, 3DES, DES-CBC3-SHA, RC4-SHA, AES256-SHA, AES128-SHA'
-pf_main['smtp_tls_protocols'] = '!SSLv2, SSLv3, TLSv1'
-pf_main['smtpd_tls_mandatory_protocols'] = 'TLSv1, TLSv1.1, TLSv1.2'
+pf_main['smtpd_tls_ciphers'] = 'medium'
+pf_main['smtpd_tls_dh1024_param_file'] = "#{node['ranchhand']['ssl_cert_dir']}/dhparam.pem"
+pf_main['smtpd_tls_exclude_ciphers'] = %w(aNULL MD5 DES 3DES DES-CBC3-SHA RC4-SHA AES256-SHA AES128-SHA)
 pf_main['smtpd_tls_mandatory_ciphers'] = 'high'
+# Disable SSL in a variety of situations
+pf_main['smtpd_tls_mandatory_protocols'] = %w(!SSLv2 !SSLv3)
+pf_main['smtp_tls_mandatory_protocols'] = %w(!SSLv2 !SSLv3)
+pf_main['smtp_tls_protocols'] = %w(!SSLv2 !SSLv3)
+pf_main['smtpd_tls_protocols'] = %w(!SSLv2 !SSLv3)
+pf_main['smtpd_tls_auth_only'] = 'yes'
 pf_main['tls_high_cipherlist'] = 'ECDH+aRSA+AES256:ECDH+aRSA+AES128:AES256-SHA:DES-CBC3-SHA'
 pf_main['smtp_tls_note_starttls_offer'] = 'yes'
 pf_main['smtpd_tls_received_header'] = 'yes'
 pf_main['smtpd_tls_session_cache_database'] = 'btree:${data_directory}/smtpd_scache'
 pf_main['smtp_tls_session_cache_database'] = 'btree:${data_directory}/smtp_scache'
 pf_main['smtpd_tls_auth_only'] = 'yes'
-pf_main['smtp_tls_security_level'] = 'may'
-pf_main['smtp_tls_loglevel'] = '2'
+pf_main['smtpd_tls_security_level'] = 'may'
+pf_main['smtp_tls_security_level'] = 'dane'
 pf_main['smtpd_tls_cert_file'] = nogweii_cert.certificate
 pf_main['smtpd_tls_key_file'] = nogweii_cert.key
+pf_main['smtp_tls_note_starttls_offer'] = yes
+
+# increase the verbosity to get a summary of TLS connections
+pf_main['smtp_tls_loglevel'] = 1
+pf_main['smtpd_tls_loglevel'] = 1
 
 # Require a client to send us a HELO/EHLO. Spammers often won't, legit clients
-# that don't suck and pretty much don't exist any more.
+# that suck pretty much don't exist any more.
 pf_main['smtpd_helo_required'] = 'yes'
+
+# Require the client to send a valid HELO
+pf_main['smtpd_helo_restrictions'] = %w(permit_mynetworks, reject_invalid_helo_hostname)
+
+# reject incoming mail when the sender's address doesn't have a valid A or MX
+# record
+pf_main['smtpd_sender_restrictions'] = %w(
+  reject_unknown_address
+  reject_non_fqdn_sender
+  reject_unknown_sender_domain
+  reject_authenticated_sender_login_mismatch
+)
+
+pf_main['disable_vrfy_command'] = yes
+pf_main['strict_rfc821_envelopes'] = yes
+
+# A more brusque error code for clients postfix has decided to drop
+pf_main['invalid_hostname_reject_code'] = 554
+pf_main['multi_recipient_bounce_reject_code'] = 554
+pf_main['non_fqdn_reject_code'] = 554
+pf_main['relay_domains_reject_code'] = 554
+pf_main['unknown_address_reject_code'] = 554
+pf_main['unknown_client_reject_code'] = 554
+pf_main['unknown_hostname_reject_code'] = 554
+pf_main['unknown_local_recipient_reject_code'] = 554
+pf_main['unknown_relay_recipient_reject_code'] = 554
+pf_main['unknown_virtual_alias_reject_code'] = 554
+pf_main['unknown_virtual_mailbox_reject_code'] = 554
+pf_main['unverified_recipient_reject_code'] = 554
+pf_main['unverified_sender_reject_code'] = 554
+
+#pf_main['smtpd_tls_received_header'] = yes
 
 # Waste some of spammer's time before rejecting them. Also mitigates some amount
 # of user discovery.
@@ -86,12 +133,20 @@ pf_main['smtpd_delay_reject'] = 'yes'
 pf_main['disable_vrfy_command'] = 'yes'
 
 pf_main['smtpd_recipient_restrictions'] = %w(
+  permit_sasl_authenticated
   permit_mynetworks
+  reject_unauth_pipelining
   reject_unauth_destination
-  check_policy_service unix:private/policyd-spf
+  reject_invalid_hostname
+  reject_non_fqdn_hostname
+  reject_non_fqdn_recipient
   reject_unknown_recipient_domain
   reject_unverified_recipient
+  reject_unlisted_recipient
+  check_policy_service unix:private/policyd-spf
+  permit
 )
+  #check_policy_service inet:127.0.0.1:10023 # TODO: postgrey
 
 # Ensure the SPF policy server has enough time to do the DNS queries before
 # postfix times it out
@@ -126,13 +181,25 @@ pf_main['postscreen_bare_newline_action'] = 'enforce'
 pf_main['postscreen_bare_newline_enable'] = 'yes'
 pf_main['postscreen_non_smtp_command_enable'] = 'yes'
 pf_main['postscreen_pipelining_enable'] = 'yes'
+pf_main['postscreen_dnsbl_action'] = 'enforce'
+pf_main['postscreen_greet_action'] = 'enforce'
 
 pf_main['virtual_transport'] = "lmtp:unix:private/dovecot-lmtp"
 
 pf_main['milter_protocol'] = 2
+# if the milters can't be reached, continue on anyways
 pf_main['milter_default_action'] = 'accept'
 pf_main['smtpd_milters'] = ["unix:#{node['mailbag']['opendkim_socket']}"]
 pf_main['non_smtpd_milters'] = ["unix:#{node['mailbag']['opendkim_socket']}"]
+
+pf_main['smtp_header_checks'] = "pcre:#{node['postfix']['conf_dir']}/header_checks_anonymized.pcre"
+
+pf_main['smtpd_sasl_type'] = 'dovecot'
+pf_main['smtpd_sasl_path'] = 'private/auth'
+pf_main['smtpd_sasl_auth_enable'] = 'yes'
+pf_main['smtpd_sasl_security_options'] = 'noanonymous'
+
+pf_main['smtp_dns_support_level'] = 'dnssec'
 
 include_recipe 'postfix::server'
 
@@ -181,4 +248,31 @@ file postscreen_dnsbl_reply_map do
 
 !/^zen\.spamhaus\.org$/         multiple DNS-based blocklists
 EOPOSTSCREEN_DNSBL
+end
+
+file "#{node['postfix']['conf_dir']}/header_checks_anonymized.pcre" do
+  owner 'root'
+  group node['root_group']
+  mode '0644'
+  notifies :restart, 'service[postfix]'
+  content <<EOHEADER_CHECKS
+# A series of regexes to apply to outgoing mail so a few headers that can leak
+# information about the user is stripped
+# Remove the first line of the Received: header. Note that we cannot fully
+# remove the Received: header because OpenDKIM requires that a header be present
+# when signing outbound mail. The first line is where the user's home IP address
+# would be.
+
+/^\s*Received:[^\n]*(.*)/ REPLACE Received: from authenticated-user (#{pf_main['myhostname']} [#{node['ipaddress']}])$1
+
+# Remove other typically private information.
+/^\s*User-Agent:/        IGNORE
+/^\s*X-Enigmail:/        IGNORE
+/^\s*X-Mailer:/          IGNORE
+/^\s*X-Originating-IP:/  IGNORE
+/^\s*X-Pgp-Agent:/       IGNORE
+
+# The Mime-Version header can leak the user agent too, e.g. in Mime-Version: 1.0 (Mac OS X Mail 8.1 \(2010.6\)).
+/^\s*(Mime-Version:\s*[0-9\.]+)\s.+/ REPLACE $1
+EOHEADER_CHECKS
 end
