@@ -8,7 +8,8 @@ node['websites']['domains'].each do |domain|
     domain_template     = 'domain_nginx.erb'
     file_group          = node['nginx']['group']
     file_owner          = node['nginx']['user']
-    sites_avail_conf    = "#{node['nginx']['dir']}/sites-available/#{domain}_domain"
+    domain_conf_name    = "#{domain}_domain"
+    sites_avail_conf    = "#{node['nginx']['dir']}/sites-available/#{domain_conf_name}"
   else
     Chef::Log.fatal! "Unsupported http server. I don't know how to deal with #{node['ranchhand']['httpd']}!"
   end
@@ -50,6 +51,10 @@ node['websites']['domains'].each do |domain|
     owner     file_owner
     group     file_group
     variables domain_template_vars
+  end
+
+  nginx_site domain_conf_name do
+    enable true
   end
 end
 

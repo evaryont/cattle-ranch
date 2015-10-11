@@ -53,7 +53,3 @@ link "#{node['nginx']['dir']}/domains/files.evs.sx.d/files" do
   group node['ranchhand']['admin_name']
   to "#{file_depot_dir}/file_depot.nginx"
 end
-
-nginx_site 'files' do
-  enable true
-end
