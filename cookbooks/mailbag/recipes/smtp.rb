@@ -107,8 +107,8 @@ pf_main['smtpd_sender_restrictions'] = %w(
   reject_authenticated_sender_login_mismatch
 )
 
-pf_main['disable_vrfy_command'] = yes
-pf_main['strict_rfc821_envelopes'] = yes
+pf_main['disable_vrfy_command'] = 'yes'
+pf_main['strict_rfc821_envelopes'] = 'yes'
 
 # A more brusque error code for clients postfix has decided to drop
 pf_main['invalid_hostname_reject_code'] = 554
@@ -125,7 +125,7 @@ pf_main['unknown_virtual_mailbox_reject_code'] = 554
 pf_main['unverified_recipient_reject_code'] = 554
 pf_main['unverified_sender_reject_code'] = 554
 
-#pf_main['smtpd_tls_received_header'] = yes
+#pf_main['smtpd_tls_received_header'] = 'yes'
 
 # Waste some of spammer's time before rejecting them. Also mitigates some amount
 # of user discovery.
