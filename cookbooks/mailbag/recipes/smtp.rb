@@ -85,7 +85,7 @@ pf_main['smtpd_tls_security_level'] = 'may'
 pf_main['smtp_tls_security_level'] = 'dane'
 pf_main['smtpd_tls_cert_file'] = nogweii_cert.certificate
 pf_main['smtpd_tls_key_file'] = nogweii_cert.key
-pf_main['smtp_tls_note_starttls_offer'] = yes
+pf_main['smtp_tls_note_starttls_offer'] = 'yes'
 
 # increase the verbosity to get a summary of TLS connections
 pf_main['smtp_tls_loglevel'] = 1
