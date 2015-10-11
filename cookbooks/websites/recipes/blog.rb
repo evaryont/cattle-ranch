@@ -18,4 +18,5 @@ template "#{node['nginx']['dir']}/domains/evaryont.me.d/blog" do
   source 'blog.erb'
   owner  node['nginx']['user']
   group  node['nginx']['group']
+  notifies :reload, 'service[nginx]', :delayed
 end

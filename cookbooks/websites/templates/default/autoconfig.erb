@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Thunderbird (and compatible) client IMAP & SMTP configuration details for
+  the domain <%= @domain %>. <%= node['config_disclaimer'] %> -->
+
+<clientConfig version="1.1">
+    <emailProvider id="<%= @domain %>">
+        <domain><%= @domain %></domain>
+        <displayName><%= @domain %> (Mailbag)</displayName>
+        <displayShortName><%= @domain %></displayShortName>
+
+        <incomingServer type="imap">
+            <hostname><%= @email_server %></hostname>
+            <port>993</port>
+            <socketType>SSL</socketType>
+            <authentication>password-cleartext</authentication>
+            <username>%EMAILADDRESS%</username>
+        </incomingServer>
+
+        <outgoingServer type="smtp">
+            <hostname><%= @email_server %></hostname>
+            <port>587</port>
+            <socketType>STARTTLS</socketType>
+            <authentication>password-cleartext</authentication>
+            <username>%EMAILADDRESS%</username>
+            <addThisServer>true</addThisServer>
+            <useGlobalPreferredServer>true</useGlobalPreferredServer>
+        </outgoingServer>
+
+        <documentation url="https://<%= @email_server %>/">
+          <descr lang="en"><%= @email_server %> website.</descr>
+        </documentation>
+    </emailProvider>
+
+    <!--
+    <webMail>
+      <loginPage url="https://<%= @email_server %>/mail/" />
+        <loginPageInfo url="https://<%= @email_server %>/mail/" >
+        <username>%EMAILADDRESS%</username>
+        <usernameField id="rcmloginuser" name="_user" />
+        <passwordField id="rcmloginpwd" name="_pass" />
+        <loginButton id="rcmloginsubmit" />
+      </loginPageInfo>
+    </webMail>
+    -->
+
+    <clientConfigUpdate url="https://<%= @domain %>/.well-known/autoconfig/mail/config-v1.1.xml" />
+</clientConfig>
+
