@@ -3,12 +3,15 @@ node['opendkim']['packages']['tools'].each do |dkim_tool_package|
 end
 
 node.override['opendkim']['conf']['Mode'] = 'sv'
-node.override['opendkim']['conf']['Socket'] = "local:#{node['mailbag']['postfix_private_dir']}/#{node['mailbag']['opendkim_socket']}"
+node.override['opendkim']['conf']['Socket'] = "local:#{node['mailbag']['opendkim_socket']}"
 node.override['opendkim']['conf']['Selector'] = node.name
 node.override['opendkim']['conf']['Syslog'] = 'yes'
+node.override['opendkim']['conf']['RequireSafeKeys'] = 'yes'
 node.override['opendkim']['conf']['UserID'] = "#{node['opendkim']['user']}:#{node['opendkim']['group']}"
 node.override['opendkim']['conf']['Keyfile'] = "#{node['mailbag']['opendkim_dir']}/#{node.name}.private"
 node.override['opendkim']['conf']['Domain'] = node['ranchhand']['domain_name']
+node.override['opendkim']['conf']['Umask'] = '002'
+node.override['opendkim']['conf']['OversignHeaders'] = 'From'
 include_recipe 'opendkim'
 
 # This directory will store the DKIM key and example configuration

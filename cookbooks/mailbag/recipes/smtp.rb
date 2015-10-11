@@ -131,8 +131,8 @@ pf_main['virtual_transport'] = "lmtp:unix:private/dovecot-lmtp"
 
 pf_main['milter_protocol'] = 2
 pf_main['milter_default_action'] = 'accept'
-pf_main['smtpd_milters'] = ["unix:#{node['mailbag']['postfix_private_dir']}/#{node['mailbag']['opendkim_socket']}"]
-pf_main['non_smtpd_milters'] = ["unix:#{node['mailbag']['postfix_private_dir']}/#{node['mailbag']['opendkim_socket']}"]
+pf_main['smtpd_milters'] = ["unix:#{node['mailbag']['opendkim_socket']}"]
+pf_main['non_smtpd_milters'] = ["unix:#{node['mailbag']['opendkim_socket']}"]
 
 include_recipe 'postfix::server'
 
