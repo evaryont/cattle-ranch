@@ -26,7 +26,7 @@ node['websites']['domains'].each do |domain|
   end
 
   # Try to find a TLS certificate for the configured domain
-  begin
+  if data_bag('ssl').include? domain
     domain_cert = certificate_manage domain do
       cert_path node['ranchhand']['ssl_cert_dir']
       owner file_owner
@@ -35,7 +35,7 @@ node['websites']['domains'].each do |domain|
       data_bag 'ssl'
       data_bag_type 'encrypted'
     end
-  rescue Net::HTTPServerException
+  else
     # But if it doesn't exist, that's no big deal. Less HTTPS, yeah, but I'm not
     # going to mandate it. (Yet. TODO: Let's Encrypt client setup)
     domain_cert = nil
