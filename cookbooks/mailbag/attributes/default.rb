@@ -1,4 +1,4 @@
-node.default['mailbag']['opendkim_socket'] = '/var/run/opendkim.socket'
+node.default['mailbag']['opendkim_socket'] = '/var/run/opendkim/opendkim.socket'
 node.default['mailbag']['opendkim_dir'] = '/var/lib/opendkim'
 node.default['mailbag']['my_domains'] = %w[localhost]
 node.default['mailbag']['aliases'] = {}
