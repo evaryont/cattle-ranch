@@ -19,8 +19,3 @@ template "#{node['nginx']['dir']}/domains/evaryont.me.d/blog" do
   owner  node['nginx']['user']
   group  node['nginx']['group']
 end
-
-# turn the site on
-nginx_site 'blog' do
-  enable true
-end
