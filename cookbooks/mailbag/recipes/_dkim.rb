@@ -10,7 +10,7 @@ node.override['opendkim']['conf']['RequireSafeKeys'] = 'yes'
 node.override['opendkim']['conf']['Selector'] = node.name
 node.override['opendkim']['conf']['Socket'] = "local:#{node['mailbag']['opendkim_socket']}"
 node.override['opendkim']['conf']['Syslog'] = 'yes'
-node.override['opendkim']['conf']['Umask'] = '002'
+node.override['opendkim']['conf']['Umask'] = '000'
 node.override['opendkim']['conf']['UserID'] = "#{node['opendkim']['user']}:#{node['opendkim']['group']}"
 include_recipe 'opendkim'
 
