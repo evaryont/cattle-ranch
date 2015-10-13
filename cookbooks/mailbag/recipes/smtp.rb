@@ -171,8 +171,9 @@ pf_main['postscreen_dnsbl_sites'] = ['zen.spamhaus.org*3',
                                      'bl.spamcop.net',
                                      'psbl.surriel.com',
                                      'bl.mailspike.net',
-                                     'swl.spamhaus.org*-4',
-                                     'list.dnswl.org*-4']
+                                     'swl.spamhaus.org*-4']
+# TODO: 'list.dnswl.org*-4', get a dns recursive resolver setup, as google's is
+# blocked
 pf_main['postscreen_dnsbl_threshold'] = '3'
 pf_main['postscreen_greet_action'] = 'enforce'
 pf_main['postscreen_whitelist_interfaces'] = ['192.168.0.0/24',
