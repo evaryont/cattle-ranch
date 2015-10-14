@@ -10,7 +10,7 @@ pf_main = node.override['postfix']['main']
 node.override['postfix']['master']['submission'] = true
 
 # What network addresses should postfix trust? Answer: Only itself.
-pf_main['mynetworks'] = [ "127.0.0.0/8" ]
+#pf_main['mynetworks'] = [ "127.0.0.0/8" ]
 # What domain should this mail server answer to?
 pf_main['mydomain'] = node['ranchhand']['domain_name']
 # When a local/shell user sends a mail, what domain should be implied? Since
@@ -96,7 +96,7 @@ pf_main['smtpd_tls_loglevel'] = 1
 pf_main['smtpd_helo_required'] = 'yes'
 
 # Require the client to send a valid HELO
-pf_main['smtpd_helo_restrictions'] = %w(permit_mynetworks, reject_invalid_helo_hostname)
+pf_main['smtpd_helo_restrictions'] = %w(permit_mynetworks reject_invalid_helo_hostname)
 
 # reject incoming mail when the sender's address doesn't have a valid A or MX
 # record
