@@ -49,6 +49,7 @@ end
 node.override['postfix']['virtual_alias_domains_db'] = '/etc/postfix/virtual_mailboxes'
 pf_main['virtual_alias_maps'] = "#{node['postfix']['virtual_alias_db_type']}:#{node['postfix']['virtual_alias_db']}"
 pf_main['virtual_mailbox_maps'] = "#{node['postfix']['virtual_alias_domains_db_type']}:#{node['postfix']['virtual_alias_domains_db']}"
+pf_main['smtpd_sender_login_maps'] = pf_main['virtual_mailbox_maps']
 node.override['postfix']['use_virtual_aliases_domains'] = true
 node.override['postfix']['use_virtual_aliases'] = true
 node.override['postfix']['virtual_aliases'] = Hash[standard_email_mappings].merge(node['mailbag']['aliases'])
