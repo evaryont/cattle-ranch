@@ -159,7 +159,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  ranchhand (0.8.37)
+  ranchhand (0.8.38)
     apache2 (>= 0.0.0)
     apt-periodic (~> 0.2)
     certificate (>= 0.0.0)

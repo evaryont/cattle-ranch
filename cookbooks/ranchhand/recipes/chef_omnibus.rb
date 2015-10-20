@@ -10,4 +10,5 @@ janitor_directory '/var/chef/reports' do
   age             7
   recursive       true
   action          :purge
+  only_if { Dir.exists? '/var/chef/reports' }
 end
