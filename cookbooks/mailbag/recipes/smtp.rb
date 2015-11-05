@@ -19,9 +19,9 @@ pf_main['myorigin'] = node['ranchhand']['domain_name']
 # What name does postfix call this server, when talking to other machines?
 pf_main['myhostname'] = "#{node.name}.#{node['ranchhand']['domain_name']}"
 
-# List of domains to use local transport, set to blank as I don't use this.
-# Everything is routed through to the virtual transport
-pf_main['mydestination'] = ""
+pf_main['local_transport'] = 'virtual'
+pf_main['local_recipient_maps'] = '$virtual_mailbox_maps'
+
 # List of domains to use the virtual transport, which is every domain I care
 # about
 pf_main['virtual_mailbox_domains'] = domains
@@ -105,7 +105,7 @@ pf_main['smtpd_sender_restrictions'] = %w(
   reject_unknown_address
   reject_non_fqdn_sender
   reject_unknown_sender_domain
-  reject_authenticated_sender_login_mismatch
+  reject_unverified_sender
 )
 
 pf_main['disable_vrfy_command'] = 'yes'
@@ -134,18 +134,18 @@ pf_main['smtpd_delay_reject'] = 'yes'
 pf_main['disable_vrfy_command'] = 'yes'
 
 pf_main['smtpd_recipient_restrictions'] = %w(
-  permit_sasl_authenticated
-  permit_mynetworks
-  reject_unauth_pipelining
-  reject_unauth_destination
   reject_invalid_hostname
   reject_non_fqdn_hostname
   reject_non_fqdn_recipient
   reject_unknown_recipient_domain
+  permit_sasl_authenticated
+  permit_mynetworks
+  reject_unauth_pipelining
+  reject_unauth_destination
   reject_unverified_recipient
   reject_unlisted_recipient
   check_policy_service unix:private/policyd-spf
-  permit
+  reject
 )
   #check_policy_service inet:127.0.0.1:10023 # TODO: postgrey
 
