@@ -1,3 +1,11 @@
+# create the directory with chef (as root), so git doesn't try (since the user
+# it's running as doesn't have permission to in the parent directory)
+directory '/var/www/passphrase_toy' do
+  user node['nginx']['user']
+  group node['nginx']['group']
+  mode '0664'
+end
+
 # Pull source from github
 git '/var/www/passphrase_toy' do
   repo 'https://github.com/evaryont/pgp_pass_phrase'
