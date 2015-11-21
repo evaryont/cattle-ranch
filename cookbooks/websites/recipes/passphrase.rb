@@ -3,7 +3,7 @@
 directory '/var/www/passphrase_toy' do
   user node['nginx']['user']
   group node['nginx']['group']
-  mode '0664'
+  mode '0775'
 end
 
 # Pull source from github
