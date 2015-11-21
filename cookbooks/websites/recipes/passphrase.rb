@@ -19,7 +19,7 @@ git '/var/www/passphrase_toy' do
 end
 
 # Tell nginx about it
-template "#{node['nginx']['dir']}/domains/evs.sx.d/blog" do
+template "#{node['nginx']['dir']}/domains/evs.sx.d/passphrase" do
   source 'passphrase.erb'
   owner  node['nginx']['user']
   group  node['nginx']['group']
