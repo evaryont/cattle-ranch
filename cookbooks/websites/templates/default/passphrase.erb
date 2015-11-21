@@ -1,0 +1,22 @@
+# <%= node['config_disclaimer'] %>
+
+# Configuration for the basic passphrase web toy I made
+
+etag on;
+
+root /var/wwww/passphrase;
+
+location / {
+  index index.html;
+  autoindex off;
+  expires 21d;
+}
+
+location /js {
+  expires max;
+}
+
+location /css {
+  expires max;
+}
+
