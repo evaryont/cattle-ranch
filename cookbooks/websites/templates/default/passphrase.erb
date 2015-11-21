@@ -4,19 +4,9 @@
 
 etag on;
 
-root /var/wwww/passphrase;
-
 location /passphrase {
+  alias /var/www/passphrase_toy/;
   index index.html;
   autoindex off;
-  expires 21d;
-}
-
-location /passphrase/js {
   expires max;
 }
-
-location /passphrase/css {
-  expires max;
-}
-
